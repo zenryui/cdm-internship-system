@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root{
+    --color-primary: #7380ec;
+    --color-white: #fff;
+    --color-info: #7d8da1;
+    --color-light: rgba(132, 139, 200, 0.18);
+    --color-background: #f6f6f9;
+    --border-radius-2: 1.2rem;
+}
+
+html{
+    font-size: 12px;
+    scroll-behavior: smooth;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    font-size: .88rem;
+    background: var(--color-background);
+    user-select: none;
+    overflow-x: hidden;
+}
+
+h1{
+    font-weight: 600;
+    font-size: 1.8rem;
+}
+
+h2{font-size: 1.4rem;}
+h3{font-size: .87rem;}
+h4{font-size: .8rem;}
+h5{font-size: .77rem;}
+small{font-size: .75rem;}
+
+.primary{color: var(--color-primary);}
+
+header{position: relative;}
+.change-password-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 90vh;
+    padding-top: 8rem;
+}
+
+
+
+
+.change-password-container form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: var(--border-radius-2);
+    padding: 3.5rem;
+    background-color: var(--color-white);
+    border: solid 2px var(--color-light);
+    width: 95%;
+    max-width: 32rem;
+    max-height: 30rem;
+}
+
+
+
+.infinity-free {
+    position: relative;
+    bottom: 2.3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: none;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.infinity-free h1 img {
+    height: 3rem; /* Adjust height as needed */
+    vertical-align: middle; /* Align the icon vertically with the text */
+}
+
+
+.change-password-container form input[type=email]::placeholder {
+    color: var(--color-info); /* Set the placeholder color to light gray */
+    padding-left: 1px; /* Adjust the padding as needed */
+}
+
+.change-password-container form .box input.form-control {
+    padding: .7rem .7rem; /* Adjust padding to match the button height */
+}
+
+
+
+.change-password-container form .box{
+    padding: .5rem 0;;
+}
+.change-password-container form .box p{
+    line-height: 2;
+    font-weight: 550;
+}
+/* Sign up for Internship */
+.centered {
+    text-align: center;
+    padding-bottom: -6rem;
+}
+
+.change-password-container form h2+p{margin: .4rem 0 1.2rem 0;}
+
+.change-password-container form p {
+    top: 7px;
+    position:relative;
+}
+
+.btn{
+    background: none;
+    border: none;
+    border: 2px solid var(--color-primary) !important;
+    border-radius: 1.5;
+    padding: .5rem 1rem;
+    color: var(--color-white);
+    background-color: var(--color-primary);
+    cursor: pointer;
+    margin: 1rem 1.5rem 1rem 0;
+    margin-top: 2rem;
+    height: 3rem;
+    width: 100%;
+}
+
+
+
+
+
+.btn:hover{
+    color: var(--color-primary);
+    background-color: transparent;
+}
+
+.signup-link {
+    text-align: center;
+}
+
+
+.signup-label {
+    position: relative;
+    top: 2.3rem;
+    left: 50%;
+    padding-right: 4.2rem;
+    transform: translateX(-50%); /* Center it horizontally */
+    visibility: hidden;
+}
+
+.signup-link {
+    position: relative;
+    top: .0                           rem; /* Adjust the distance from the bottom as needed */
+    left: 50%; /* Center it horizontally */
+
+    transform: translateX(-50%); /* Center it horizontally */
+    text-decoration: none;
+    color: var(--color-info);
+}
+
+
+
+
+
+
+.change-password-container form .box input.form-control {
+    width: calc(100% - -1rem); /* Adjust the width to match the search button */
+}
+
+.change-password-container form .send-button {
+    width: auto; /* Allow the button to take up its natural width */
+    margin-right: 0; /* Remove margin */
+}
+
+.change-password-container form .send-button .btn {
+    width: 110%; /* Make the button fill the available width */
+}
+
+
+
+
+.result-container {
+    display: flex;
+    align-items: center; /* Align items vertically */
+}
+
+.box {
+    flex: 1; /* Expand to fill available space */
+    margin-right: 10px; /* Adjust margin as needed */
+}
+
+
+.alert {
+    padding: .7rem .7rem; /* Adjust padding to match the input height */
+    font-size: .88rem; /* Match the font size with the input */
+    margin-top: 1rem; /* Add margin to separate from the input */
+    width: 103%;
+}
+
+.send-button {
+    flex-shrink: 0; /* Prevent shrinking */
+    padding: .7rem .7rem; /* Adjust padding to match the input height */
+    margin-top: -12px;
+    text-align: center; /* Align the button to the center */
+}
+
+.send-button .btn {
+    width: 100%; /* Make the button fill the available width */
+}
+
+
+
+
+
+
+
+
