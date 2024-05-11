@@ -76,4 +76,67 @@
 </html>
 
 
+<?php
+session_start();
+ob_start();
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php';
+require 'connection.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+
+    // Check if email exists in the activated_users table
+    $sql = "SELECT * FROM activated_users WHERE email = '$email'";
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        // Generate a new code
+        $code = mt_rand(100000, 999999);
+        // Hash the code
+        $hashedCode = password_hash($code, PASSWORD_DEFAULT);
+        // Update hashed code in the database
+        $update_sql = "UPDATE activated_users SET code = '$hashedCode' WHERE email = '$email'";
+        if (mysqli_query($conn, $update_sql)) {
+            // Send code to user's email using PHPMailer
+            $mail = new PHPMailer();
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.gmail.com';
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'cdm.ics.internship@gmail.com'; // Replace with your email address
+            $mail->Password   = 'bhvgbxexullmszdk'; // Replace with your email password
+            $mail->SMTPSecure = 'ssl';
+            $mail->Port       = 465;
+
+            $mail->setFrom('cdm.ics.internship@gmail.com', 'CDM Internship');
+            $mail->addAddress($email);
+
+            $mail->isHTML(true);
+            $mail->Subject = 'Password Reset Code';
+            $mail->Body    = "Your password reset code is: $code";
+
+            if ($mail->send()) {
+                // Redirect to reset.php
+                $_SESSION['email'] = $email;
+                header("Location: reset.php");
+                exit();
+            } else {
+                $_SESSION['errors'] = "Error sending email: " . $mail->ErrorInfo;
+                header("Location: search-email.php");
+                exit();
+            }
+        } else {
+            $_SESSION['errors'] = "Error updating code in database";
+            header("Location: search-email.php");
+            exit();
+        }
+    } else {
+        $_SESSION['errors'] = "Email not found!";
+        header("Location: search-email.php");
+        exit();
+    }
+}
+?>
