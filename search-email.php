@@ -14,50 +14,58 @@
         <form id="searchForm" method="post" action="search-email.php">
             <!-- added start -->
             <?php
-            // Initialize $name and $email
-            $name = '';
-            $email = '';
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                require 'connection.php';
+session_start();
+ob_start();
 
-                $email = mysqli_real_escape_string($conn, $_POST['email']);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'];
 
-                // Check if email exists in the activated_users table
-                $sql = "SELECT * FROM activated_users WHERE email = '$email'";
-                $result = mysqli_query($conn, $sql);
+    // Check if email exists in the activated_users table
+    require 'connection.php';
+    $sql = "SELECT * FROM activated_users WHERE email = '$email'";
+    $result = mysqli_query($conn, $sql);
 
-                if (mysqli_num_rows($result) > 0) {
-                    $user_data = mysqli_fetch_assoc($result);
-                    $name = $user_data['name']; // Corrected variable name to 'name'
-                    ?>
-                    <div class="result-container">
-                        <div class="box">
-                            <div class="alert alert-success">User found: <?php echo $name; ?></div>
-                        </div>
-                        <div class="send-button">
-                            <a href='forgetpass.php?email=<?php echo $email; ?>' class='btn btn-primary'>Confirm</a>
-                        </div>
-                    </div>
-                    <?php
-                } else {
-                    ?>
-                    <div class="result-container">
-                        <div class="box">
-                            <div class="alert alert-danger">User not found!</div>
-                        </div>
-                    </div>
-                    <?php
+    if (mysqli_num_rows($result) > 0) {
+        $user_data = mysqli_fetch_assoc($result);
+        $name = $user_data['name'];
+        ?>
+        <div class="result-container">
+            <div class="box">
+                <div class="alert alert-success">User found: <?php echo $name; ?></div>
+            </div>
+            <div class="send-button">
+                <a href="#" class='btn btn-primary' id="confirmButton">This is me</a>
+            </div>
+        </div>
+        <script>
+            document.getElementById('confirmButton').addEventListener('click', function() {
+                if (confirm("Are you sure this account is yours <?php echo $email; ?>?")) {
+                    window.location.href = 'forgetpass.php?email=<?php echo $email; ?>';
                 }
+            });
+        </script>
+        <?php
+    } else {
+        ?>
+        <div class="result-container">
+            <div class="box">
+                <div class="alert alert-danger">User not found!</div>
+            </div>
+        </div>
+        <?php
+    }
 
-                mysqli_close($conn);
-            }
-            ?>
+    mysqli_close($conn);
+}
+?>
+
             <!-- added end -->
 
             <div class="box">
-                <p class="text-muted">Email Address</p>
+                <p class="text-muted" style="text-align: center;">Search for your recovery email</p>
                 <!-- Store the value of email using PHP -->
-                <input class="form-control" type="email" name="email" value="<?php echo $email; ?>" required>
+                <input class="form-control" type="email" name="email" value="<?php echo isset($email) ? $email : ''; ?>" required placeholder="ferg@gmail.com" style= "text-align: center;">
+
             </div>
 
             <div class="button">

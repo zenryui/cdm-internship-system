@@ -20,14 +20,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     // Retrieve the email from session
-    $email = $_SESSION['user_data']['email']; // Assuming 'email' is the field name in your 'activated_users' table
+    $email = $_SESSION['email']; // Assuming you store the email in '$_SESSION['email']'
 
     // Update the password in the database
     $update_sql = "UPDATE activated_users SET password = '$hashedPassword' WHERE email = '$email'";
     if (mysqli_query($conn, $update_sql)) {
-        // Store the updated password in the session
-        $_SESSION['user_data']['password'] = $hashedPassword;
-
         $_SESSION['success'] = "Password updated successfully!";
         // Redirect to login page or wherever you want
         header("Location: index.php");
@@ -39,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 
 
 

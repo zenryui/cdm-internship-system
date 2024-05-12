@@ -87,7 +87,7 @@ if (isset($_POST['submit'])) {
                 <h2 class="centered">Account Activation</h2>
                 <p class="text-muted">Enter the code from your email address at: <span class="email-domain">@gmail.com</span></p>
                 <div class="box">
-                    <input class="form-control" type="text" name="code" id="code" maxlength="6">
+                    <input class="form-control" type="text" name="code" id="code" maxlength="6" minlength="6" placeholder="XXXXXX">
                 </div>
                 <div class="button">
                     <input type="submit" value="Continue" class="btn" name="submit">

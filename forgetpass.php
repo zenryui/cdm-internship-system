@@ -41,8 +41,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->Body    = "Your password reset code is: $code";
 
             if ($mail->send()) {
-                // Redirect to reset.php
+                // Store email and code in session for later use
                 $_SESSION['email'] = $email;
+                $_SESSION['code'] = $code;
+                
+                // Redirect to reset.php after sending the code
                 header("Location: reset.php");
                 exit();
             } else {
@@ -71,6 +74,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,39 +88,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="shortcut icon" href="./Student-Dashboard/images/id-card.png">
     <!-- <link rel="stylesheet" href="login.css"> -->
     <link rel="stylesheet" href="assets/css/forgetpass.css">
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
- 
     <div class="change-password-container">
         <form id="registrationForm" method="post" action="forgetpass.php">
             <div class="infinity-free">
                 <h1><img src="assets/img/id-card.png" alt="Icon"><span class="primary"> CDM Internship</span></h1>
             </div>
             
-            <h2 class="centered">Forget Password</h2>
+            <h2 class="centered">Confirmation</h2>
             <p class="text-center" id="msg"></p>
 
             <div class="box">
-                <p class="text-muted">Email Address</p>
-                <input class="form-control" type="email" name="email" required>
+                <p class="text-muted" style="text-align: center;">Our system will send a six-digit code as your token to the email provided below ⬇️.<span class="email-domain" style="color: #7380ec;"> Read only</span></p>
+                <input class="form-control" type="email" name="email" value="<?php echo $_GET['email'] ?? ''; ?>" readonly style="text-align: center;">
             </div>
 
             <div class="button">
-                <input type="submit" value="Send" class="btn">
+                <input type="submit" id="submitButton" value="Send Code" class="btn">
             </div>
 
             <p class="signup-label">Don't have an account yet?</p>
-            <a href="index.php" class="signup-link">Cancel</a>
+            <a href="search-email.php" class="signup-link">Cancel</a>
         </form>
     </div>
 
+    <script>
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            // Display SweetAlert when the form is submitted
+            Swal.fire({
+                icon: 'success',
+                title: 'Code Sent!',
+                text: 'The password reset code has been sent to your email.',
+                showConfirmButton: false,
+                timer: 3000
+            });
+            
+            // Change button text to "Sent" when the form is submitted
+            document.getElementById("submitButton").value = "Sent";
+        });
+    </script>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="ajax-script.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-
-
-
 </html>
