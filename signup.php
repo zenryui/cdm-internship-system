@@ -29,7 +29,7 @@ if (isset($_SESSION['login_active'])) {
 
 <body>
     <!-- start -->
-    <div class="change-password-container">
+    <div class="signup-container">
 
         <form id="signupForm" action="register.php" method="post">
             <div class="infinity-free">
@@ -75,8 +75,8 @@ if (isset($_SESSION['login_active'])) {
                 <input type="submit" value="Sign up" class="btn" name="signup">
             </div>
 
-            <p class="forget-password-label">Already have account?</p><a href="index.php"
-                class="forget-password-link">Sign in</a>
+            <p class="goto-login-label">Already have account?</p><a href="index.php"
+                class="goto-login-link">Sign in</a>
 
         </form>
     </div>

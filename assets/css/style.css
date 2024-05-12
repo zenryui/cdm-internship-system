@@ -50,7 +50,7 @@ small{font-size: .75rem;}
 .primary{color: var(--color-primary);}
 
 header{position: relative;}
-.change-password-container{
+.signup-container{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -59,11 +59,11 @@ header{position: relative;}
     padding-top: 8rem;
 }
 
-.change-password-container form .box {
+.signup-container form .box {
     position: relative; /* Make the box position relative */
 }
 
-.change-password-container form .box p {
+.signup-container form .box p {
     bottom: -7px;
     margin-top: -5px;
     position: relative;
@@ -75,7 +75,7 @@ header{position: relative;}
 }
 
 
-.change-password-container form{
+.signup-container form{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -108,9 +108,9 @@ header{position: relative;}
 }
 
 
-.change-password-container form .box input[type=password],
-.change-password-container form .box input[type=text],
-.change-password-container form .box input[type=email] 
+.signup-container form .box input[type=password],
+.signup-container form .box input[type=text],
+.signup-container form .box input[type=email] 
 {
     border: none;
     outline: none;
@@ -120,18 +120,18 @@ header{position: relative;}
     width: 100%;
     padding: 0.5rem;
 }
-.change-password-container form input[type=password]::placeholder,
-.change-password-container form input[type=text]::placeholder,
-.change-password-container form input[type=email]::placeholder {
+.signup-container form input[type=password]::placeholder,
+.signup-container form input[type=text]::placeholder,
+.signup-container form input[type=email]::placeholder {
     color: var(--color-info); /* Set the placeholder color to light gray */
     padding-left: 1px; /* Adjust the padding as needed */
 }
 
 
-.change-password-container form .box{
+.signup-container form .box{
     padding: .5rem 0;
 }
-.change-password-container form .box p{
+.signup-containerr form .box p{
     line-height: 2;
 }
 
@@ -170,7 +170,7 @@ header{position: relative;}
     text-decoration: none;
 }
 
-.change-password-container form h2+p{margin: .4rem 0 1.2rem 0;}
+.signup-container form h2+p{margin: .4rem 0 1.2rem 0;}
 .btn{
     background: none;
     border: none;
@@ -191,12 +191,12 @@ header{position: relative;}
     background-color: transparent;
 }
 
-.forget-password-label, .forget-password-link {
+.goto-login-label, .goto-login-link {
     text-align: center;
 }
 
 
-.forget-password-label {
+.goto-login-label {
     position: relative;
     top: 3rem;
     left: 50%;
@@ -204,7 +204,7 @@ header{position: relative;}
     transform: translateX(-50%); /* Center it horizontally */
 }
 
-.forget-password-link {
+.goto-login-link {
     position: relative;
     top: .7rem; /* Adjust the distance from the bottom as needed */
     left: 50%; /* Center it horizontally */
