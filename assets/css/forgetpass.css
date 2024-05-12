@@ -86,7 +86,6 @@ header{position: relative;}
     padding-left: 1px; /* Adjust the padding as needed */
 }
 
-
 .change-password-container form .box{
     padding: .5rem 0;;
 }
@@ -150,8 +149,5 @@ header{position: relative;}
     text-decoration: none;
     color: var(--color-info);
 }
-
-
-
 
 
