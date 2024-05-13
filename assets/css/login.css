@@ -185,7 +185,7 @@ header{position: relative;}
     position: relative;
     top: .7rem; /* Adjust the distance from the bottom as needed */
     left: 50%; /* Center it horizontally */
-    padding-left: 10rem;
+    padding-left: 11.5rem;
     transform: translateX(-50%); /* Center it horizontally */
     text-decoration: none;
 }

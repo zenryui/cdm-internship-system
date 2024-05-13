@@ -2,9 +2,98 @@
 require_once("connection.php");
 session_start();
 
-// This code will prevent exisiting user from accessing signup page when logged in
-if (isset($_SESSION['login_active'])) {
-  header('Location: admin.php');
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php';
+
+function sanitize($data)
+{
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+
+if (isset($_POST['signup'])) {
+  
+  $name = sanitize($_POST['name']);
+  $email = sanitize($_POST['email']);
+  $password = sanitize($_POST['password']);
+  $confirmPassword = sanitize($_POST['confirm_password']);
+
+  // Check if passwords match
+  if ($password !== $confirmPassword) {
+    $_SESSION['errors'] = "Passwords do not match!";
+    header('Location: signup.php');
+    exit;
+  }
+
+  $name = mysqli_real_escape_string($conn, $name);
+  $email = mysqli_real_escape_string($conn, $email);
+
+  // Check if username already exists
+  $checkUsernameQuery = "SELECT * FROM users WHERE name = '$name'";
+  $resultUsername = mysqli_query($conn, $checkUsernameQuery);
+  if (mysqli_num_rows($resultUsername) > 0) {
+    $_SESSION['errors'] = "Username already taken!";
+    header('Location: signup.php');
+    exit;
+  }
+
+  // Check if email already exists
+  $checkEmailQuery = "SELECT * FROM users WHERE email = '$email'";
+  $resultEmail = mysqli_query($conn, $checkEmailQuery);
+  if (mysqli_num_rows($resultEmail) > 0) {
+    $_SESSION['errors'] = "Email already exists!";
+    header('Location: signup.php');
+    exit;
+  }
+
+  // Hash the password
+  $hashedPass = password_hash($password, PASSWORD_DEFAULT);
+
+  $active = 0; // We insert active as zero by default so that we can manage to activate our use later on
+
+  $code = mt_rand(100000, 999999); // Generating a 6-digit random code
+
+  // Hash the code using password_hash
+  $hashedCode = password_hash($code, PASSWORD_DEFAULT);
+
+  $sql = "INSERT INTO users (name, email, password, code, active) VALUES ('$name', '$email', '$hashedPass', '$hashedCode', '$active')";
+
+  if (mysqli_query($conn, $sql)) {
+    
+    $mail = new PHPMailer();
+
+    try {
+      $mail->SMTPDebug = 0;
+      $mail->isSMTP();
+      $mail->Host       = 'smtp.gmail.com;';
+      $mail->SMTPAuth   = true;
+      $mail->Username   = 'cdm.ics.internship@gmail.com';   // Enter your gmail-id              
+      $mail->Password   = 'bhvgbxexullmszdk';     // Enter your gmail app password that you generated 
+      $mail->SMTPSecure = 'ssl';
+      $mail->Port       = 465;
+
+      $mail->setFrom('cdm.ics.internship@gmail.com', 'CDM Internship'); // This mail-id will be same as your gmail-id
+      $mail->addAddress($email, $name);      // Enter your receiver email-id
+
+      $mail->isHTML(true);
+      $mail->Subject = 'Activation Code';      // Your email subject line
+      $mail->Body    = 'Your Activation Code is: ' . $code;   // Body of email here
+      $mail->send();
+
+      $_SESSION['errors'] = "Signup Successful. Please Check your email for the activation code!";
+      header('Location: activate.php');
+      exit;
+    } catch (Exception $e) {
+
+      $_SESSION['errors'] = "Email sending failed!";
+      header('Location: http://localhost/registration-form/signup.php');
+      exit;
+    }
+  }
 }
 ?>
 
@@ -31,17 +120,22 @@ if (isset($_SESSION['login_active'])) {
     <!-- start -->
     <div class="signup-container">
 
-        <form id="signupForm" action="register.php" method="post">
+        <form id="signupForm" action="signup.php" method="post">
             <div class="infinity-free">
                 <h1><img src="assets/img/id-card.png" alt="Icon"><span class="primary"> CDM Internship</span></h1>
             </div>
 
             <h2 class="centered">Sign Up for Internship</h2>
 
+            <?php if(isset($_SESSION['errors'])): ?>
+              <div class="alert alert-danger" role="alert">
+                <?php echo $_SESSION['errors']; ?>
+              </div>
+            <?php unset($_SESSION['errors']); endif; ?>
+
             <div class="alert-container">
                 <p class="alert-message" id="msg"></p>
             </div>
-
 
             <div class="box">
                 <p class="text-muted">Username</p>

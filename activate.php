@@ -37,7 +37,7 @@ if (isset($_POST['submit'])) {
                         $_SESSION['success'] = "Account activation success!";
                         $_SESSION['registered'] = true; // Set registered to true
                         // Display alert window
-                        echo "<script>alert('Authentication success!')</script>";
+                        echo "<script>alert('Account activation success!')</script>";
                         // Redirect to index.php
                         echo "<script>window.location.href = 'index.php';</script>";
                         exit;
