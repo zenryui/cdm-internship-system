@@ -36,7 +36,7 @@ small{font-size: .75rem;}
 .primary{color: var(--color-primary);}
 
 header{position: relative;}
-.change-password-container{
+.activate-account-container{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -53,7 +53,7 @@ header{position: relative;}
 
 
 
-.change-password-container form {
+.activate-account-container form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -87,15 +87,15 @@ header{position: relative;}
 }
 
 
-.change-password-container form input[type=text]::placeholder {
+.activate-account-container form input[type=text]::placeholder {
     color: var(--color-info); /* Set the placeholder color to light gray */
     padding-left: 1px; /* Adjust the padding as needed */
 }
 
-.change-password-container form .box {
+.activate-account-container form .box {
     padding: .5rem 0;
 }
-.change-password-container form .box p{
+.activate-account-container form .box p{
     line-height: 2;
     font-weight: 550;
 }
@@ -105,9 +105,9 @@ header{position: relative;}
     padding-bottom: -6rem;
 }
 
-.change-password-container form h2+p{margin: .4rem 0 1.2rem 0;}
+.activate-account-container form h2+p{margin: .4rem 0 1.2rem 0;}
 
-.change-password-container form p {
+.activate-account-container form p {
     top: 7px;
     position:relative;
 }
@@ -135,7 +135,7 @@ header{position: relative;}
     background-color: transparent;
 }
 
-.signup-link {
+.back-to-signup-link {
     text-align: center;
 }
 
@@ -149,7 +149,7 @@ header{position: relative;}
     visibility: hidden;
 }
 
-.signup-link {
+.back-to-signup-link {
     position: relative;
     top: .0                           rem; /* Adjust the distance from the bottom as needed */
     left: 50%; /* Center it horizontally */

@@ -78,7 +78,7 @@ if (isset($_POST['submit'])) {
             </div>
         <?php endif; ?>
     </div>
-        <div class="change-password-container">
+        <div class="activate-account-container">
             <form id="registrationForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <div class="infinity-free">
                     <h1><img src="assets/img/id-card.png" alt="Icon"><span class="primary"> CDM Internship</span></h1>
@@ -93,7 +93,7 @@ if (isset($_POST['submit'])) {
                     <input type="submit" value="Continue" class="btn" name="submit">
                 </div>
                 <p class="signup-label">Don't have an account yet?</p>
-                <a href="sign-in.php" class="signup-link">Cancel</a>
+                <a href="signup.php" class="back-to-signup-link">Back</a>
             </form>
         </div>
     </div>
