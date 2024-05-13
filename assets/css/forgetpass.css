@@ -36,7 +36,7 @@ small{font-size: .75rem;}
 .primary{color: var(--color-primary);}
 
 header{position: relative;}
-.change-password-container{
+.confirm-ownership-container{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,7 +48,7 @@ header{position: relative;}
 
 
 
-.change-password-container form{
+.confirm-ownership-container form{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -81,15 +81,15 @@ header{position: relative;}
 }
 
 
-.change-password-container form input[type=email]::placeholder {
+.confirm-ownership-container form input[type=email]::placeholder {
     color: var(--color-info); /* Set the placeholder color to light gray */
     padding-left: 1px; /* Adjust the padding as needed */
 }
 
-.change-password-container form .box{
+.confirm-ownership-container form .box{
     padding: .5rem 0;;
 }
-.change-password-container form .box p{
+.confirm-ownership-container form .box p{
     line-height: 2;
     font-weight: 550;
 }
@@ -99,9 +99,9 @@ header{position: relative;}
     padding-bottom: -6rem;
 }
 
-.change-password-container form h2+p{margin: .4rem 0 1.2rem 0;}
+.confirm-ownership-container form h2+p{margin: .4rem 0 1.2rem 0;}
 
-.change-password-container form p {
+.confirm-ownership-container form p {
     top: 7px;
     position:relative;
 }
@@ -126,7 +126,7 @@ header{position: relative;}
     background-color: transparent;
 }
 
-.signup-link {
+.return-to-search-email-link {
     text-align: center;
 }
 
@@ -140,7 +140,7 @@ header{position: relative;}
     visibility: hidden;
 }
 
-.signup-link {
+.return-to-search-email-link {
     position: relative;
     top: .0                           rem; /* Adjust the distance from the bottom as needed */
     left: 50%; /* Center it horizontally */

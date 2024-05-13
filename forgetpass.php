@@ -91,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
-    <div class="change-password-container">
+    <div class="confirm-ownership-container">
         <form id="registrationForm" method="post" action="forgetpass.php">
             <div class="infinity-free">
                 <h1><img src="assets/img/id-card.png" alt="Icon"><span class="primary"> CDM Internship</span></h1>
@@ -110,7 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <p class="signup-label">Don't have an account yet?</p>
-            <a href="search-email.php" class="signup-link">Cancel</a>
+            <a href="search-email.php" class="return-to-search-email-link">Cancel</a>
         </form>
     </div>
 
