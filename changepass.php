@@ -37,17 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,45 +46,71 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="shortcut icon" href="./Student-Dashboard/images/id-card.png">
-    <!-- <link rel="stylesheet" href="login.css"> -->
     <link rel="stylesheet" href="assets/css/create-pass.css">
-    
+    <style>
+        /* Alert message */
+        .alert-container {
+            position: absolute;
+            top: 15%; /* Adjust as needed */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .alert-message {
+            display: none;
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: .75rem 1.25rem;
+            margin-bottom: 1rem;
+            border-radius: .25rem;
+        }
+
+        .alert-message.show {
+            display: block;
+        }
+    </style>
 </head>
 <body>
-    
-
-    <div class="change-password-container">
+    <div class="container">
+        <div class="change-password-container">
             <form id="registrationForm" method="post" action="changepass.php">
-            <div class="infinity-free">
-                <h1><img src="assets/img/id-card.png" alt="Icon"><span class="primary"> CDM Internship</span></h1>
-            </div>
-                    
-            <h2 class="centered">Create new password</h2>
-            <!-- Ajax message -->
-            <p class="text-center" id="msg"></p>
+                <div class="infinity-free">
+                    <h1><img src="assets/img/id-card.png" alt="Icon"><span class="primary"> CDM Internship</span></h1>
+                </div>
+                        
+                <h2 class="centered">Create new password</h2>
+                <!-- Alert container for errors -->
+                <div class="alert-container">
+                    <?php if (isset($_SESSION['errors'])): ?>
+                        <div class="alert alert-danger">
+                            <?php echo $_SESSION['errors']; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
 
-            <div class="box">
-                <p class="text-muted">New password</p>
-                <input class="form-control" type="password" name="password" id="password" placeholder="Your new password">
-            </div>
-            <div class="box">
-                <p class="text-muted">Confirm Password </p>
-                <input class="form-control" type="password" name="confirm_password" id="confirm_password" placeholder="Confirm your new password">
-            </div>
+                <div class="box">
+                    <p class="text-muted">New password</p>
+                    <input class="form-control" type="password" name="password" id="password" placeholder="Your new password">
+                </div>
+                <div class="box">
+                    <p class="text-muted">Confirm Password </p>
+                    <input class="form-control" type="password" name="confirm_password" id="confirm_password" placeholder="Confirm your new password">
+                </div>
 
-            <div class="button">
-                <input type="submit" value="Create new password" class="btn">
-            </div>
-            <p class="signup-label">Don't have account yet?</p><a href="signup.php" class="signup-link">Cancel</a>
-        </form>
+                <div class="button">
+                    <input type="submit" value="Create new password" class="btn">
+                </div>
+                <p class="signup-label">Don't have account yet?</p><a href="signup.php" class="signup-link">Cancel</a>
+            </form>
+        </div>
     </div>
-
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="ajax-script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-
-
-
 </html>
