@@ -42,35 +42,20 @@ if (isset($_POST['login'])) {
   }
 
   if (!empty($errors)) {
-    // Store errors in session
-    $_SESSION['errors'] = $errors;
-
-    // Redirect to index.php
-    header("Location: index.php");
+    // Return errors as JSON response
+    echo json_encode(['status' => 'error', 'errors' => $errors]);
     exit();
   } else {
-    // Store user data in session
+    // Successful login
     $_SESSION['user_data'] = $user_data;
-
-    // Redirect to log.php
-    header("Location: log.php");
+    echo json_encode(['status' => 'success']);
     exit();
   }
 }
 ?>
 
-
-
-
-
-
-
-
-
-
 <!doctype html>
 <html lang="en">
-
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -85,10 +70,9 @@ if (isset($_POST['login'])) {
 
   <title>Login</title>
 </head>
-
 <body>
 <div class="login-container">
-    <form id="registrationForm" method="post" action="index.php">
+    <form id="loginForm" method="post">
         <!-- Form content -->
         <div class="infinity-free">
             <h1><img src="assets/img/id-card.png" alt="Icon"><span class="primary"> CDM Internship</span></h1>
@@ -96,39 +80,62 @@ if (isset($_POST['login'])) {
         <h2 class="centered">Login to your account</h2>
         <div class="box">
             <p class="text-muted">Email Address</p>
-            <input class="form-control" type="email" name="email" placeholder="ferg@gmail.com">
+            <input class="form-control" type="email" name="email" id="email" placeholder="ferg@gmail.com">
         </div>
         <div class="box">
             <p class="text-muted">Password <span class="forget-pass"><a href="search-email.php">I forgot my password </a></span></p>
-            <input class="form-control" type="password" name="password" placeholder="Your password">
+            <input class="form-control" type="password" name="password" id="password" placeholder="Your password">
         </div>
         <div class="button">
-            <input type="submit" value="Sign in" class="btn" name="login">
+            <input type="button" value="Sign in" class="btn" id="loginBtn">
         </div>
         <p class="goto-signup-label">Don't have an account yet?</p>
         <a href="signup.php" class="goto-signup-link">Sign up</a>
 
 
         <!-- Alert container for errors -->
-        <div class="alert-container">
-            <?php
-            if (isset($_SESSION['errors'])) {
-                foreach ($_SESSION['errors'] as $error) {
-                    echo '<p class="alert-message show">' . $error . '</p>';
-                }
-                unset($_SESSION['errors']); // Clear errors after displaying
-            }
-            ?>
+        <div class="alert-container" id="alertContainer">
         </div>
 
     </form>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    $("#loginBtn").click(function() {
+        var email = $("#email").val();
+        var password = $("#password").val();
 
+        $.ajax({
+            type: "POST",
+            url: "index.php",
+            data: {
+                email: email,
+                password: password,
+                login: 1
+            },
+            success: function(response) {
+                var responseData = JSON.parse(response);
+                if (responseData.status == "success") {
+                    // Redirect to logged-in page
+                    window.location.href = "log.php";
+                } else {
+                    var errors = responseData.errors;
+                    var errorHTML = '';
+                    errors.forEach(function(error) {
+                        errorHTML += '<p class="alert-message show">' + error + '</p>';
+                    });
+                    $("#alertContainer").html(errorHTML);
+                    // Clear the password field upon error
+                    $("#password").val('');
+                }
+            }
+        });
+    });
+});
+</script>
 
 </body>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="ajax-script.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </html>
+
