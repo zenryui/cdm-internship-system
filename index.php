@@ -81,11 +81,11 @@ if (isset($_POST['login'])) {
         <h2 class="centered">Login to your account</h2>
         <div class="box">
             <p class="text-muted">Email Address</p>
-            <input class="form-control" type="email" name="email" id="email" placeholder="ferg@gmail.com">
+            <input class="form-control" type="email" name="email" id="email" placeholder="ferg@gmail.com" required>
         </div>
         <div class="box">
             <p class="text-muted">Password <span class="forget-pass"><a href="search-email.php">I forgot my password </a></span></p>
-            <input class="form-control" type="password" name="password" id="password" placeholder="Your password">
+            <input class="form-control" type="password" name="password" id="password" placeholder="Your password" required>
         </div>
         <div class="button">
             <input type="button" value="Sign in" class="btn" id="loginBtn">

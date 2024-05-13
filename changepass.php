@@ -89,11 +89,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="box">
                     <p class="text-muted">New password</p>
-                    <input class="form-control" type="password" name="password" id="password" placeholder="Your new password">
+                    <input class="form-control" type="password" name="password" id="password" placeholder="Your new password" required>
                 </div>
                 <div class="box">
                     <p class="text-muted">Confirm Password </p>
-                    <input class="form-control" type="password" name="confirm_password" id="confirm_password" placeholder="Confirm your new password">
+                    <input class="form-control" type="password" name="confirm_password" id="confirm_password" placeholder="Confirm your new password" required>
                 </div>
 
                 <div class="button">

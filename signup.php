@@ -139,27 +139,27 @@ if (isset($_POST['signup'])) {
 
             <div class="box">
                 <p class="text-muted">Username</p>
-                <input class="form-control" type="text" name="name" id="username" placeholder="Your username">
+                <input class="form-control" type="text" name="name" id="username" placeholder="Your username" required minlength="6" maxlength="20">
             </div>
 
             <div class="box">
                 <p class="text-muted">Email Address</p>
-                <input class="form-control" type="email" name="email" id="email" placeholder="ferg@gmail.com">
+                <input class="form-control" type="email" name="email" id="email" placeholder="ferg@gmail.com" required>
             </div>
 
             <div class="box">
                 <p class="text-muted">Password</p>
-                <input class="form-control" type="password" name="password" id="password" placeholder="Your password">
+                <input class="form-control" type="password" name="password" id="password" placeholder="Your password" required>
             </div>
 
             <div class="box">
                 <p class="text-muted">Confirm Password</p>
                 <input class="form-control" type="password" name="confirm_password" id="confirm_password"
-                    placeholder="Confirm your password">
+                    placeholder="Confirm your password" required>
             </div>
 
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                 <label class="form-check-label" for="flexCheckDefault">
                     I've read and agree to the <a href="#">terms of service.</a>.
                 </label>

