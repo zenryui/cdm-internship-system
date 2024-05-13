@@ -1,0 +1,24 @@
+updated name of css html classes for the following:
+
+----------------------------------------------------
+signup.php -> html for the registration/signup form
+style.css -> css for the signup.php form
+
+index.php -> html/backend for the login/signin form
+login.css -> css for the index.php form
+
+activate.php -> html/backend for the account activation form
+activate.css -> css for the activate.php form
+
+search-email.php -> html/backend for the account searching form
+search-email.css -> css for the search-email.css
+
+forgetpass.php -> readonly email from searched to confrim sending token
+forgetpass.css -> css for forgetpass.php
+
+reset.php -> html/backend for entering otp/token
+reset.css -> css for reset.php
+
+changepass.php -> html/backend for creating new password
+create-pass.css -> css for changepass.php
+----------------------------------------------------
