@@ -66,7 +66,7 @@ if (isset($_POST['login'])) {
 
 <body>
 
-<div class="change-password-container">
+<div class="login-container">
     <form id="registrationForm" method="post" action="index.php">
         <div class="infinity-free">
             <h1><img src="assets/img/id-card.png" alt="Icon"><span class="primary"> CDM Internship</span></h1>
@@ -83,8 +83,8 @@ if (isset($_POST['login'])) {
         <div class="button">
             <input type="submit" value="Sign in" class="btn" name="login">
         </div>
-        <p class="signup-label">Don't have an account yet?</p>
-        <a href="signup.php" class="signup-link">Sign up</a>
+        <p class="goto-signup-label">Don't have an account yet?</p>
+        <a href="signup.php" class="goto-signup-link">Sign up</a>
     </form>
 </div>
 

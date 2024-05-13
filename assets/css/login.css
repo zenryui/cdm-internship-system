@@ -36,7 +36,7 @@ small{font-size: .75rem;}
 .primary{color: var(--color-primary);}
 
 header{position: relative;}
-.change-password-container{
+.login-container{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -45,11 +45,11 @@ header{position: relative;}
     padding-top: 8rem;
 }
 
-.change-password-container form .box {
+.login-container form .box {
     position: relative; /* Make the box position relative */
 }
 
-.change-password-container form .box p {
+.login-container form .box p {
     bottom: -7px;
     margin-top: -5px;
     position: relative;
@@ -57,7 +57,7 @@ header{position: relative;}
 }
 
 
-.change-password-container form{
+.login-container form{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -90,9 +90,9 @@ header{position: relative;}
 }
 
 
-.change-password-container form:hover{box-shadow: none;}
-.change-password-container form .box input[type=password],
-.change-password-container form .box input[type=email] {
+.login-container form:hover{box-shadow: none;}
+.login-container form .box input[type=password],
+.login-container form .box input[type=email] {
     border: none;
     outline: none;
     border: 1px solid var(--color-light);
@@ -101,17 +101,17 @@ header{position: relative;}
     width: 100%;
     padding: 0.5rem;
 }
-.change-password-container form input[type=password]::placeholder,
-.change-password-container form input[type=email]::placeholder {
+.login-container form input[type=password]::placeholder,
+.login-container form input[type=email]::placeholder {
     color: var(--color-info); /* Set the placeholder color to light gray */
     padding-left: 1px; /* Adjust the padding as needed */
 }
 
 
-.change-password-container form .box{
+.login-container form .box{
     padding: .5rem 0;
 }
-.change-password-container form .box p{
+.login-container form .box p{
     line-height: 2;
 }
 /* Sign up for Internship */
@@ -147,7 +147,7 @@ header{position: relative;}
     text-decoration: none;
 }
 
-.change-password-container form h2+p{margin: .4rem 0 1.2rem 0;}
+.login-container form h2+p{margin: .4rem 0 1.2rem 0;}
 .btn{
     background: none;
     border: none;
@@ -168,12 +168,12 @@ header{position: relative;}
     background-color: transparent;
 }
 
-.signup-label, .signup-link {
+.goto-signup-label, .goto-signup-link {
     text-align: center;
 }
 
 
-.signup-label {
+.goto-signup-label {
     position: relative;
     top: 3rem;
     left: 50%;
@@ -181,7 +181,7 @@ header{position: relative;}
     transform: translateX(-50%); /* Center it horizontally */
 }
 
-.signup-link {
+.goto-signup-link {
     position: relative;
     top: .7rem; /* Adjust the distance from the bottom as needed */
     left: 50%; /* Center it horizontally */
