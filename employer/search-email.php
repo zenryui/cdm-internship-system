@@ -6,8 +6,8 @@
     <title>Search Email</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-    <link rel="shortcut icon" href="./Student-Dashboard/images/id-card.png">
-    <link rel="stylesheet" href="assets/css/search-email.css">
+    <link rel="shortcut icon" href="../assets/img/id-card.png">
+    <link rel="stylesheet" href="../assets/css/search-email.css">
 </head>
 <body>
     <div class="search-email-container" id="SearchEmailContainer"> <!-- Added id attribute -->
@@ -21,8 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
 
     // Check if email exists in the activated_users table
-    require 'connection.php';
-    $sql = "SELECT * FROM activated_users WHERE email = '$email'";
+    require '../connection/connection.php';
+    $sql = "SELECT * FROM activated_employer WHERE email = '$email'";
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) > 0) {
@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="ajax-script.js"></script>
+<script src="../js/ajax-script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

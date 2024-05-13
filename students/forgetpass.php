@@ -5,14 +5,14 @@ ob_start();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'vendor/autoload.php';
-require 'connection.php';
+require '../vendor/autoload.php';
+require '../connection/connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
 
     // Check if email exists in the activated_users table
-    $sql = "SELECT * FROM activated_users WHERE email = '$email'";
+    $sql = "SELECT * FROM activated_student WHERE email = '$email'";
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) > 0) {
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Hash the code
         $hashedCode = password_hash($code, PASSWORD_DEFAULT);
         // Update hashed code in the database
-        $update_sql = "UPDATE activated_users SET code = '$hashedCode' WHERE email = '$email'";
+        $update_sql = "UPDATE activated_student SET code = '$hashedCode' WHERE email = '$email'";
         if (mysqli_query($conn, $update_sql)) {
             // Send code to user's email using PHPMailer
             $mail = new PHPMailer();
@@ -82,19 +82,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign up</title>
+    <title>Verify</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-    <link rel="shortcut icon" href="./Student-Dashboard/images/id-card.png">
+    <link rel="shortcut icon" href="../assets/img/id-card.png">
     <!-- <link rel="stylesheet" href="login.css"> -->
-    <link rel="stylesheet" href="assets/css/forgetpass.css">
+    <link rel="stylesheet" href="../assets/css/forgetpass.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
     <div class="confirm-ownership-container">
         <form id="registrationForm" method="post" action="forgetpass.php">
             <div class="infinity-free">
-                <h1><img src="assets/img/id-card.png" alt="Icon"><span class="primary"> CDM Internship</span></h1>
+                <h1><img src="../assets/img/id-card.png" alt="Icon"><span class="primary"> CDM Internship</span></h1>
             </div>
             
             <h2 class="centered">Confirmation</h2>

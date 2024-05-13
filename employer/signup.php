@@ -1,11 +1,11 @@
 <?php
-require_once("connection.php");
+require_once("../connection/connection.php");
 session_start();
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 function sanitize($data)
 {
@@ -33,7 +33,7 @@ if (isset($_POST['signup'])) {
   $email = mysqli_real_escape_string($conn, $email);
 
   // Check if username already exists
-  $checkUsernameQuery = "SELECT * FROM users WHERE name = '$name'";
+  $checkUsernameQuery = "SELECT * FROM pending_employer WHERE name = '$name'";
   $resultUsername = mysqli_query($conn, $checkUsernameQuery);
   if (mysqli_num_rows($resultUsername) > 0) {
     $_SESSION['errors'] = "Username already taken!";
@@ -41,14 +41,32 @@ if (isset($_POST['signup'])) {
     exit;
   }
 
+    // Check if username already exists
+    $checkUsernameQuery = "SELECT * FROM activated_employer WHERE name = '$name'";
+    $resultUsername = mysqli_query($conn, $checkUsernameQuery);
+    if (mysqli_num_rows($resultUsername) > 0) {
+      $_SESSION['errors'] = "Username already taken!";
+      header('Location: signup.php');
+      exit;
+    }
+
   // Check if email already exists
-  $checkEmailQuery = "SELECT * FROM users WHERE email = '$email'";
+  $checkEmailQuery = "SELECT * FROM pending_employer WHERE email = '$email'";
   $resultEmail = mysqli_query($conn, $checkEmailQuery);
   if (mysqli_num_rows($resultEmail) > 0) {
     $_SESSION['errors'] = "Email already exists!";
     header('Location: signup.php');
     exit;
   }
+
+    // Check if email already exists
+    $checkEmailQuery = "SELECT * FROM activated_employer WHERE email = '$email'";
+    $resultEmail = mysqli_query($conn, $checkEmailQuery);
+    if (mysqli_num_rows($resultEmail) > 0) {
+      $_SESSION['errors'] = "Email already exists!";
+      header('Location: signup.php');
+      exit;
+    }
 
   // Hash the password
   $hashedPass = password_hash($password, PASSWORD_DEFAULT);
@@ -60,7 +78,10 @@ if (isset($_POST['signup'])) {
   // Hash the code using password_hash
   $hashedCode = password_hash($code, PASSWORD_DEFAULT);
 
-  $sql = "INSERT INTO users (name, email, password, code, active) VALUES ('$name', '$email', '$hashedPass', '$hashedCode', '$active')";
+  // Default access value
+  $access = 'student';
+
+  $sql = "INSERT INTO pending_employer (name, email, password, code, active, access) VALUES ('$name', '$email', '$hashedPass', '$hashedCode', '$active', '$access')";
 
   if (mysqli_query($conn, $sql)) {
     
@@ -97,6 +118,7 @@ if (isset($_POST['signup'])) {
 }
 ?>
 
+
 <!doctype html>
 <html lang="en">
 
@@ -111,7 +133,8 @@ if (isset($_POST['signup'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="shortcut icon" href="../assets/img/id-card.png">
 
     <title>Login & Registration</title>
 </head>
@@ -122,7 +145,7 @@ if (isset($_POST['signup'])) {
 
         <form id="signupForm" action="signup.php" method="post">
             <div class="infinity-free">
-                <h1><img src="assets/img/id-card.png" alt="Icon"><span class="primary"> CDM Internship</span></h1>
+                <h1><img src="../assets/img/id-card.png" alt="Icon"><span class="primary"> CDM Internship</span></h1>
             </div>
 
             <h2 class="centered">Sign Up for Internship</h2>

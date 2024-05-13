@@ -2,7 +2,7 @@
 session_start();
 ob_start();
 
-require 'connection.php';
+require '../connection/connection.php';
 
 $errors = array(); // Initialize an empty array to store errors
 
@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) {
         $hashed_code = password_hash($code, PASSWORD_DEFAULT);
 
         // Check if the hashed code exists in the database
-        $sql = "SELECT * FROM users";
+        $sql = "SELECT * FROM pending_student";
         $result = mysqli_query($conn, $sql);
 
         while($row = mysqli_fetch_assoc($result)) {
@@ -29,10 +29,10 @@ if (isset($_POST['submit'])) {
                 $user_data = $row;
                 
                 // Insert user data into 'activated_users' table
-                $insert_sql = "INSERT INTO activated_users (name, email, password, code, active) VALUES ('{$user_data['name']}', '{$user_data['email']}', '{$user_data['password']}', '{$user_data['code']}', 1)";
+                $insert_sql = "INSERT INTO activated_student (name, email, password, code, active) VALUES ('{$user_data['name']}', '{$user_data['email']}', '{$user_data['password']}', '{$user_data['code']}', 1)";
                 if (mysqli_query($conn, $insert_sql)) {
                     // Delete user data from 'users' table
-                    $delete_sql = "DELETE FROM users WHERE code = '{$user_data['code']}'";
+                    $delete_sql = "DELETE FROM pending_student WHERE code = '{$user_data['code']}'";
                     if (mysqli_query($conn, $delete_sql)) {
                         $_SESSION['success'] = "Account activation success!";
                         $_SESSION['registered'] = true; // Set registered to true
@@ -66,9 +66,9 @@ if (isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Activate Account</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="shortcut icon" href="./Student-Dashboard/images/id-card.png">
+    <link rel="shortcut icon" href="../assets/img/id-card.png">
 
-    <link rel="stylesheet" href="assets/css/activate.css">
+    <link rel="stylesheet" href="../assets/css/activate.css">
 </head>
 <body>
     <div class="container">
@@ -82,7 +82,7 @@ if (isset($_POST['submit'])) {
         <div class="activate-account-container">
             <form id="registrationForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <div class="infinity-free">
-                    <h1><img src="assets/img/id-card.png" alt="Icon"><span class="primary"> CDM Internship</span></h1>
+                    <h1><img src="../assets/img/id-card.png" alt="Icon"><span class="primary"> CDM Internship</span></h1>
                 </div>
     
                 <h2 class="centered">Account Activation</h2>
@@ -95,6 +95,7 @@ if (isset($_POST['submit'])) {
                 </div>
                 <p class="signup-label">Don't have an account yet?</p>
                 <a href="signup.php" class="back-to-signup-link">Back</a>
+        
             </form>
         </div>
     </div>

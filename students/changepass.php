@@ -2,8 +2,8 @@
 session_start();
 ob_start();
 
-require 'vendor/autoload.php';
-require 'connection.php';
+require '../vendor/autoload.php';
+require '../connection/connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = mysqli_real_escape_string($conn, $_POST['password']);
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_SESSION['email']; // Assuming you store the email in '$_SESSION['email']'
 
     // Update the password in the database
-    $update_sql = "UPDATE activated_users SET password = '$hashedPassword' WHERE email = '$email'";
+    $update_sql = "UPDATE activated_student SET password = '$hashedPassword' WHERE email = '$email'";
     if (mysqli_query($conn, $update_sql)) {
         $_SESSION['success'] = "Password updated successfully!";
         echo json_encode(array("success" => true, "message" => "Password updated successfully!"));
@@ -39,12 +39,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign up</title>
+    <title>Change Password</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-    <link rel="shortcut icon" href="./Student-Dashboard/images/id-card.png">
+    <link rel="shortcut icon" href="../assets/img/id-card.png">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- sweet alert -->
-    <link rel="stylesheet" href="assets/css/create-pass.css">
+    <link rel="stylesheet" href="../assets/css/create-pass.css">
     <style>
         /* Alert message */
         .alert-container {
@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="change-password-container">
             <form id="registrationForm" method="post" action="javascript:void(0);">
                 <div class="infinity-free">
-                    <h1><img src="assets/img/id-card.png" alt="Icon"><span class="primary"> CDM Internship</span></h1>
+                    <h1><img src="../assets/img/id-card.png" alt="Icon"><span class="primary"> CDM Internship</span></h1>
                 </div>
                         
                 <h2 class="centered">Create new password</h2>

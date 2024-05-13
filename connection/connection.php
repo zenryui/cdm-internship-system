@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "2474";
-$dbname = "users";
+$dbname = "cdm-internship-database";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
