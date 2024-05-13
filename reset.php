@@ -47,6 +47,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="shortcut icon" href="./Student-Dashboard/images/id-card.png">
     <link rel="stylesheet" href="assets/css/reset.css">
+    <!-- Include SweetAlert library -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <div class="container">
@@ -70,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input class="form-control" type="text" name="code" id="code" maxlength="6" minlength="6" placeholder="XXXXXX">
                 </div>
                 <div class="button">
-                    <input type="submit" value="Continue" class="btn" name="submit">
+                    <input type="submit" value="Continue" class="btn" name="submit" onclick="showSuccessAlert()">
                 </div>
                 <p class="signup-label">Don't have an account yet?</p>
                 <a href="sign-in.php" class="signup-link">Cancel</a>
@@ -78,7 +80,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 
-    
+<script>
+// Function to display SweetAlert for successful OTP entry
+function showSuccessAlert() {
+    Swal.fire({
+        icon: 'success',
+        title: 'Authentication Success!',
+        showConfirmButton: false,
+        timer: 1500
+    }).then((result) => {
+        // Redirect to changepass.php after the alert disappears
+        window.location.href = 'changepass.php';
+    });
+}
+</script>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="ajax-script.js"></script>

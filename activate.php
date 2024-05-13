@@ -34,10 +34,10 @@ if (isset($_POST['submit'])) {
                     // Delete user data from 'users' table
                     $delete_sql = "DELETE FROM users WHERE code = '{$user_data['code']}'";
                     if (mysqli_query($conn, $delete_sql)) {
-                        $_SESSION['success'] = "Your account has been activated successfully!";
+                        $_SESSION['success'] = "Account activation success!";
                         $_SESSION['registered'] = true; // Set registered to true
                         // Display alert window
-                        echo "<script>alert('Your account has been activated successfully!')</script>";
+                        echo "<script>alert('Authentication success!')</script>";
                         // Redirect to index.php
                         echo "<script>window.location.href = 'index.php';</script>";
                         exit;
@@ -67,6 +67,7 @@ if (isset($_POST['submit'])) {
     <title>Activate Account</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="shortcut icon" href="./Student-Dashboard/images/id-card.png">
+
     <link rel="stylesheet" href="assets/css/activate.css">
 </head>
 <body>

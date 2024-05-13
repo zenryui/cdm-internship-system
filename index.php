@@ -66,6 +66,7 @@ if (isset($_POST['login'])) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- sweet alert -->
   <link rel="stylesheet" href="assets/css/login.css">
 
   <title>Login</title>
@@ -115,22 +116,31 @@ $(document).ready(function() {
                 password: password,
                 login: 1
             },
-            success: function(response) {
-                var responseData = JSON.parse(response);
-                if (responseData.status == "success") {
-                    // Redirect to logged-in page
-                    window.location.href = "log.php";
-                } else {
-                    var errors = responseData.errors;
-                    var errorHTML = '';
-                    errors.forEach(function(error) {
-                        errorHTML += '<p class="alert-message show">' + error + '</p>';
-                    });
-                    $("#alertContainer").html(errorHTML);
-                    // Clear the password field upon error
-                    $("#password").val('');
-                }
-            }
+                      success: function(response) {
+              var responseData = JSON.parse(response);
+              if (responseData.status == "success") {
+                  // Show SweetAlert for successful login
+                  Swal.fire({
+                      icon: 'success',
+                      title: 'Login Successful!',
+                      showConfirmButton: false,
+                      timer: 1500
+                  }).then(() => {
+                      // Redirect to logged-in page
+                      window.location.href = "log.php";
+                  });
+              } else {
+                  var errors = responseData.errors;
+                  var errorHTML = '';
+                  errors.forEach(function(error) {
+                      errorHTML += '<p class="alert-message show">' + error + '</p>';
+                  });
+                  $("#alertContainer").html(errorHTML);
+                  // Clear the password field upon error
+                  $("#password").val('');
+              }
+          }
+
         });
     });
 });
