@@ -9,7 +9,7 @@ $(document).ready(function(){
             url: "search-email.php",
             data: {email: email},
             success: function(response){
-                $("#changePasswordContainer").html(response);
+                $("#SearchEmailContainer").html(response);
             }
         });
     });

@@ -36,7 +36,7 @@ small{font-size: .75rem;}
 .primary{color: var(--color-primary);}
 
 header{position: relative;}
-.change-password-container{
+.search-email-container{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,7 +48,7 @@ header{position: relative;}
 
 
 
-.change-password-container form{
+.search-email-container form{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -81,21 +81,21 @@ header{position: relative;}
 }
 
 
-.change-password-container form input[type=email]::placeholder {
+.search-email-container form input[type=email]::placeholder {
     color: var(--color-info); /* Set the placeholder color to light gray */
     padding-left: 1px; /* Adjust the padding as needed */
 }
 
-.change-password-container form .box input.form-control {
+.search-email-container form .box input.form-control {
     padding: .7rem .7rem; /* Adjust padding to match the button height */
 }
 
 
 
-.change-password-container form .box{
+.search-email-container form .box{
     padding: .5rem 0;;
 }
-.change-password-container form .box p{
+.search-email-container form .box p{
     line-height: 2;
     font-weight: 550;
 }
@@ -105,9 +105,9 @@ header{position: relative;}
     padding-bottom: -6rem;
 }
 
-.change-password-container form h2+p{margin: .4rem 0 1.2rem 0;}
+.search-email-container form h2+p{margin: .4rem 0 1.2rem 0;}
 
-.change-password-container form p {
+.search-email-container form p {
     top: 7px;
     position:relative;
 }
@@ -136,7 +136,7 @@ header{position: relative;}
     background-color: transparent;
 }
 
-.signup-link {
+.back-to-login-link {
     text-align: center;
 }
 
@@ -150,7 +150,7 @@ header{position: relative;}
     visibility: hidden;
 }
 
-.signup-link {
+.back-to-login-link {
     position: relative;
     top: .0                           rem; /* Adjust the distance from the bottom as needed */
     left: 50%; /* Center it horizontally */
@@ -165,16 +165,16 @@ header{position: relative;}
 
 
 
-.change-password-container form .box input.form-control {
+.search-email-container form .box input.form-control {
     width: calc(100% - -1rem); /* Adjust the width to match the search button */
 }
 
-.change-password-container form .send-button {
+.search-email-container form .send-button {
     width: auto; /* Allow the button to take up its natural width */
     margin-right: 0; /* Remove margin */
 }
 
-.change-password-container form .send-button .btn {
+.search-email-container form .send-button .btn {
     width: 110%; /* Make the button fill the available width */
 }
 

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="assets/css/search-email.css">
 </head>
 <body>
-    <div class="change-password-container" id="changePasswordContainer"> <!-- Added id attribute -->
+    <div class="search-email-container" id="SearchEmailContainer"> <!-- Added id attribute -->
         <form id="searchForm" method="post" action="search-email.php">
             <!-- added start -->
             <?php
@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <p class="signup-label">Don't have an account yet?</p>
-            <a href="index.php" class="signup-link">Cancel</a>
+            <a href="index.php" class="back-to-login-link">Back to Login</a>
         </form>
     </div>
 
