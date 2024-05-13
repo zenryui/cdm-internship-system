@@ -11,8 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // Check if passwords match
     if ($password !== $confirmPassword) {
-        $_SESSION['errors'] = "Passwords do not match!";
-        header('Location: changepass.php');
+        echo json_encode(array("success" => false, "message" => "Passwords do not match!"));
         exit;
     }
 
@@ -26,12 +25,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $update_sql = "UPDATE activated_users SET password = '$hashedPassword' WHERE email = '$email'";
     if (mysqli_query($conn, $update_sql)) {
         $_SESSION['success'] = "Password updated successfully!";
-        // Redirect to login page or wherever you want
-        header("Location: index.php");
+        echo json_encode(array("success" => true, "message" => "Password updated successfully!"));
         exit();
     } else {
-        $_SESSION['errors'] = "Error updating password in database";
-        header("Location: changepass.php");
+        echo json_encode(array("success" => false, "message" => "Error updating password in database"));
         exit();
     }
 }
@@ -78,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="container">
         <div class="change-password-container">
-            <form id="registrationForm" method="post" action="changepass.php">
+            <form id="registrationForm" method="post" action="javascript:void(0);">
                 <div class="infinity-free">
                     <h1><img src="assets/img/id-card.png" alt="Icon"><span class="primary"> CDM Internship</span></h1>
                 </div>
@@ -86,11 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <h2 class="centered">Create new password</h2>
                 <!-- Alert container for errors -->
                 <div class="alert-container">
-                    <?php if (isset($_SESSION['errors'])): ?>
-                        <div class="alert alert-danger">
-                            <?php echo $_SESSION['errors']; ?>
-                        </div>
-                    <?php endif; ?>
+                    <div class="alert alert-danger alert-message" id="alertMessage"></div>
                 </div>
 
                 <div class="box">
@@ -103,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
 
                 <div class="button">
-                    <input type="submit" value="Create new password" class="btn">
+                    <input type="button" value="Create new password" class="btn" onclick="submitForm()">
                 </div>
                 <p class="signup-label">Don't have account yet?</p><a href="signup.php" class="signup-link">Cancel</a>
             </form>
@@ -111,6 +104,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="ajax-script.js"></script>
+<script>
+    function submitForm() {
+        var password = $("#password").val();
+        var confirmPassword = $("#confirm_password").val();
+        
+        if (password !== confirmPassword) {
+            $("#alertMessage").text("Passwords do not match!").addClass("show");
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "changepass.php",
+            data: $("#registrationForm").serialize(),
+            dataType: "json",
+            success: function(response) {
+                if (response.success) {
+                    alert(response.message);
+                    // Redirect to index.php or any other page
+                    window.location.href = "index.php";
+                } else {
+                    $("#alertMessage").text(response.message).addClass("show");
+                }
+            }
+        });
+    }
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </html>
