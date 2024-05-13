@@ -202,6 +202,34 @@ header{position: relative;}
 }
 
 
+/* alert message */
+
+.alert-container {
+    position: absolute;
+    top: 15%; /* Adjust as needed */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .alert-message {
+    display: none;
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border-radius: .25rem;
+  }
+  
+  .alert-message.show {
+    display: block;
+  }
+  
+
 
 
 
