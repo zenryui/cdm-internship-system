@@ -32,7 +32,7 @@ if (isset($_POST['signup'])) {
   $name = mysqli_real_escape_string($conn, $name);
   $email = mysqli_real_escape_string($conn, $email);
 
-  // Check if username already exists
+  // Check if username already exists in pending_student
   $checkUsernameQuery = "SELECT * FROM pending_student WHERE name = '$name'";
   $resultUsername = mysqli_query($conn, $checkUsernameQuery);
   if (mysqli_num_rows($resultUsername) > 0) {
@@ -41,16 +41,16 @@ if (isset($_POST['signup'])) {
     exit;
   }
 
-    // Check if username already exists
-    $checkUsernameQuery = "SELECT * FROM activated_student WHERE name = '$name'";
-    $resultUsername = mysqli_query($conn, $checkUsernameQuery);
-    if (mysqli_num_rows($resultUsername) > 0) {
-      $_SESSION['errors'] = "Username already taken!";
-      header('Location: signup.php');
-      exit;
-    }
+  // Check if username already exists in activated_student
+  $checkUsernameQuery = "SELECT * FROM activated_student WHERE name = '$name'";
+  $resultUsername = mysqli_query($conn, $checkUsernameQuery);
+  if (mysqli_num_rows($resultUsername) > 0) {
+    $_SESSION['errors'] = "Username already taken!";
+    header('Location: signup.php');
+    exit;
+  }
 
-  // Check if email already exists
+  // Check if email already exists in pending_student
   $checkEmailQuery = "SELECT * FROM pending_student WHERE email = '$email'";
   $resultEmail = mysqli_query($conn, $checkEmailQuery);
   if (mysqli_num_rows($resultEmail) > 0) {
@@ -59,19 +59,19 @@ if (isset($_POST['signup'])) {
     exit;
   }
 
-    // Check if email already exists
-    $checkEmailQuery = "SELECT * FROM activated_student WHERE email = '$email'";
-    $resultEmail = mysqli_query($conn, $checkEmailQuery);
-    if (mysqli_num_rows($resultEmail) > 0) {
-      $_SESSION['errors'] = "Email already exists!";
-      header('Location: signup.php');
-      exit;
-    }
+  // Check if email already exists in activated_student
+  $checkEmailQuery = "SELECT * FROM activated_student WHERE email = '$email'";
+  $resultEmail = mysqli_query($conn, $checkEmailQuery);
+  if (mysqli_num_rows($resultEmail) > 0) {
+    $_SESSION['errors'] = "Email already exists!";
+    header('Location: signup.php');
+    exit;
+  }
 
   // Hash the password
   $hashedPass = password_hash($password, PASSWORD_DEFAULT);
 
-  $active = 0; // We insert active as zero by default so that we can manage to activate our use later on
+  $active = 0; // We insert active as zero by default so that we can manage to activate our user later on
 
   $code = mt_rand(100000, 999999); // Generating a 6-digit random code
 
@@ -85,15 +85,15 @@ if (isset($_POST['signup'])) {
 
   if (mysqli_query($conn, $sql)) {
     
-    $mail = new PHPMailer();
+    $mail = new PHPMailer(true);
 
     try {
       $mail->SMTPDebug = 0;
       $mail->isSMTP();
-      $mail->Host       = 'smtp.gmail.com;';
+      $mail->Host       = 'smtp.gmail.com';
       $mail->SMTPAuth   = true;
-      $mail->Username   = 'cdm.ics.internship@gmail.com';   // Enter your gmail-id              
-      $mail->Password   = 'bhvgbxexullmszdk';     // Enter your gmail app password that you generated 
+      $mail->Username   = 'programmerferg@gmail.com';   // Enter your gmail-id              
+      $mail->Password   = 'tgjonvgztrmgukrf';     // Enter your gmail app password that you generated 
       $mail->SMTPSecure = 'ssl';
       $mail->Port       = 465;
 
@@ -109,14 +109,18 @@ if (isset($_POST['signup'])) {
       header('Location: activate.php');
       exit;
     } catch (Exception $e) {
-
-      $_SESSION['errors'] = "Email sending failed!";
-      header('Location: http://localhost/registration-form/signup.php');
+      $_SESSION['errors'] = "Email sending failed! Error: " . $mail->ErrorInfo;
+      header('Location: signup.php');
       exit;
     }
+  } else {
+    $_SESSION['errors'] = "Signup failed! Please try again.";
+    header('Location: signup.php');
+    exit;
   }
 }
 ?>
+
 
 
 <!doctype html>

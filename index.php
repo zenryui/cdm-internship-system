@@ -23,15 +23,15 @@
             <li class="dropdown">
                 <button class="button">Login</button>
                 <ul class="dropdown-content">
-                    <li><a href="http://localhost/internship/Employer/index.php">Employer</a></li>
-                    <li><a href="http://localhost/internship/Students/index.php">Student</a></li>
+                    <li><a href="./Employer/index.php">Employer</a></li>
+                    <li><a href="./Students/index.php">Student</a></li>
                 </ul>
             </li>
             <li class="dropdown">
                 <button class="button">Register Now</button>
                 <ul class="dropdown-content">
-                    <li><a href="http://localhost/internship/Employer/signup.php">Employer</a></li>
-                    <li><a href="http://localhost/internship/Students/signup.php">Student</a></li>
+                    <li><a href="./Employer/signup.php">Employer</a></li>
+                    <li><a href="./Students/signup.php">Student</a></li>
                 </ul>
             </li>
         </ul>
