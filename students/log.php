@@ -42,5 +42,8 @@ if (!isset($_SESSION['user_data'])) {
     <form action="logout.php" method="post">
         <input type="submit" value="Logout">
     </form>
+    <form action="pdf.php">
+    <button type="submit" class="btn btn-primary btn-block" name="generate_pdf">Generate PDF</button>
+    </form>
 </body>
 </html>

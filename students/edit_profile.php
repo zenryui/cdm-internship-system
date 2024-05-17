@@ -21,7 +21,7 @@ if ($result->num_rows > 0) {
     $user_data = array_merge($user_data, $result->fetch_assoc());
 }
 
-$stmt_resume = $conn->prepare("SELECT professional_summary, school_name, skills, experience, projects, certifications, honors_awards, extracurricular_activities, portfolio FROM table_resume WHERE user_id = ?");
+$stmt_resume = $conn->prepare("SELECT objective, birthplace, citizenship, religion, languages_spoken, civil_status, primary_education, secondary_education, tertiary_education, primary_year, secondary_year, tertiary_year FROM table_resume WHERE user_id = ?");
 $stmt_resume->bind_param("i", $user_data['id']);
 $stmt_resume->execute();
 $result_resume = $stmt_resume->get_result();
@@ -39,15 +39,18 @@ $user_data += [
     'studentID' => '',
     'birthday' => '',
     'contact_no' => '',
-    'professional_summary' => '',
-    'school_name' => '',
-    'skills' => '',
-    'experience' => '',
-    'projects' => '',
-    'certifications' => '',
-    'honors_awards' => '',
-    'extracurricular_activities' => '',
-    'portfolio' => ''
+    'objective' => '',
+    'birthplace' => '',
+    'citizenship' => '',
+    'religion' => '',
+    'languages_spoken' => '',
+    'civil_status' => '',
+    'primary_education' => '',
+    'secondary_education' => '',
+    'tertiary_education' => '',
+    'primary_year' => '',
+    'secondary_year' => '',
+    'tertiary_year' => ''
 ];
 
 // Function to sanitize input data
@@ -68,20 +71,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $studentID = sanitize($_POST['studentID']);
     $birthday = sanitize($_POST['birthday']);
     $contact_no = sanitize($_POST['contact_no']);
-    $professional_summary = sanitize($_POST['professional_summary']);
-    $school_name = sanitize($_POST['school_name']);
-    $skills = sanitize($_POST['skills']);
-    $experience = sanitize($_POST['experience']);
-    $projects = sanitize($_POST['projects']);
-    $certifications = sanitize($_POST['certifications']);
-    $honors_awards = sanitize($_POST['honors_awards']);
-    $extracurricular_activities = sanitize($_POST['extracurricular_activities']);
-    $portfolio = sanitize($_POST['portfolio']);
+    $objective = sanitize($_POST['objective']);
+    $birthplace = sanitize($_POST['birthplace']);
+    $citizenship = sanitize($_POST['citizenship']);
+    $religion = sanitize($_POST['religion']);
+    $languages_spoken = sanitize($_POST['languages_spoken']);
+    $civil_status = sanitize($_POST['civil_status']);
+    $primary_education = sanitize($_POST['primary_education']);
+    $secondary_education = sanitize($_POST['secondary_education']);
+    $tertiary_education = sanitize($_POST['tertiary_education']);
+    $primary_year = sanitize($_POST['primary_year']);
+    $secondary_year = sanitize($_POST['secondary_year']);
+    $tertiary_year = sanitize($_POST['tertiary_year']);
     
-    // Validate input data
-    if (empty($name) || empty($sex) || empty($address) || empty($course) || empty($studentID) || empty($birthday) || empty($contact_no)) {
-        $errors[] = "All fields are required.";
-    }
+    // // Validate input data
+    // if (empty($name) || empty($sex) || empty($address) || empty($course) || empty($studentID) || empty($birthday) || empty($contact_no)) {
+    //     $errors[] = "All fields are required.";
+    // }
     
     if (empty($errors)) {
         // Prepare SQL query to update user data
@@ -90,8 +96,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         if ($stmt->execute()) {
             // Insert resume details into table_resume
-            $stmt_resume = $conn->prepare("REPLACE INTO table_resume (user_id, address, professional_summary, school_name, skills, experience, projects, certifications, honors_awards, extracurricular_activities, portfolio) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt_resume->bind_param("issssssssss", $user_data['id'], $address, $professional_summary, $school_name, $skills, $experience, $projects, $certifications, $honors_awards, $extracurricular_activities, $portfolio);
+            $stmt_resume = $conn->prepare("REPLACE INTO table_resume (user_id, objective, birthplace, citizenship, religion, languages_spoken, civil_status, primary_education, secondary_education, tertiary_education, primary_year, secondary_year, tertiary_year) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt_resume->bind_param("issssssssssss", $user_data['id'], $objective, $birthplace, $citizenship, $religion, $languages_spoken, $civil_status, $primary_education, $secondary_education, $tertiary_education, $primary_year, $secondary_year, $tertiary_year);
             $stmt_resume->execute();
             $stmt_resume->close();
 
@@ -104,15 +110,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $user_data['studentID'] = $studentID;
             $user_data['birthday'] = $birthday;
             $user_data['contact_no'] = $contact_no;
-            $user_data['professional_summary'] = $professional_summary;
-            $user_data['school_name'] = $school_name;
-            $user_data['skills'] = $skills;
-            $user_data['experience'] = $experience;
-            $user_data['projects'] = $projects;
-            $user_data['certifications'] = $certifications;
-            $user_data['honors_awards'] = $honors_awards;
-            $user_data['extracurricular_activities'] = $extracurricular_activities;
-            $user_data['portfolio'] = $portfolio;
+            $user_data['objective'] = $objective;
+            $user_data['birthplace'] = $birthplace;
+            $user_data['citizenship'] = $citizenship;
+            $user_data['religion'] = $religion;
+            $user_data['languages_spoken'] = $languages_spoken;
+            $user_data['civil_status'] = $civil_status;
+            $user_data['primary_education'] = $primary_education;
+            $user_data['secondary_education'] = $secondary_education;
+            $user_data['tertiary_education'] = $tertiary_education;
+            $user_data['primary_year'] = $primary_year;
+            $user_data['secondary_year'] = $secondary_year;
+            $user_data['tertiary_year'] = $tertiary_year;
             $_SESSION['user_data'] = $user_data;
             header("Location: profile.php");
             exit;
@@ -141,7 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             color: #6c757d;
         }
         .container {
-            max-width: 550px;
+            max-width: 700px;
             margin-top: 50px;
             padding: 20px;
             background-color: #fff;
@@ -154,6 +163,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             font-weight: 500;
             font-size: 0.9rem;
         }
+        .form-group-inline label {
+            font-weight: 500;
+            text-align: left;
+        }
         .form-control {
             font-size: 0.9rem;
         }
@@ -162,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         h2 {
             margin-bottom: 20px;
-
+            font-size: 1.5rem;
         }
         h3 {
             margin-top: 20px;
@@ -188,32 +201,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             margin-right: 10px;
             margin-bottom: 1rem;
         }
-        /* CSS for portfolio label */
-
-
-        /* CSS for portfolio textarea */
         .portfolio-textarea {
-            width: 100%; /* Make the textarea fill the width of its container */
-            min-width: 100px; /* Set a minimum width to prevent it from becoming too narrow */
-            max-width: 400px; /* Set a maximum width to prevent it from becoming too wide */
-            margin-top: 5px; /* Add some top margin for separation */
-        }'
-        
-        /* CSS for address and professional summary input boxes */
-        .address-input, .professional-summary-input {
-            width: 100%; /* Make the input fill the width of its container */
-            max-width: 400px; /* Set a maximum width to prevent it from becoming too wide */
-            margin-top: 5px; /* Add some top margin for separation */
+            width: 100%;
+            min-width: 200px;
+            max-width: 400px;
+            margin-top: 5px;
         }
-
-
-        /* CSS for address and professional summary labels */
-        .form-group-inline label {
-            font-weight: 500;
-            margin-bottom: 5px;
-            text-align: left;
-        }
-
         .centered {
             display: flex;
             justify-content: center;
@@ -230,9 +223,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
 <div class="container">
-        <h2 class="text-center">Resume</h2>
+        <h2 class="text-center">Profile & Resume</h2>
         <div class="section-divider"></div>
-
         <?php if (!empty($errors)): ?>
             <div class="alert alert-danger">
                 <?php foreach ($errors as $error): ?>
@@ -240,117 +232,139 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
-
         <form id="edit-profile-form" action="edit_profile.php" method="post">
             <h3>Personal Details</h3>
             <div class="section-divider"></div>
             <div class="form-row">
                 <div class="form-group-inline">
-                    <label for="name">Full Name</label>
-                    <input type="text" class="form-control" id="name" name="name" value="<?php echo $user_data['name']; ?>" required>
+                <label for="name">Full Name<span style="font-size: .7rem; padding-left: 10px;"> ( First Name, M.I., Last Name )</span></label>
+                    <input type="text" class="form-control" id="name" name="name" value="<?php echo $user_data['name']; ?>">
                 </div>
                 <div class="form-group-inline">
-                    <label for="studentID">Student ID</label>
-                    <input type="text" class="form-control" id="studentID" name="studentID" style="width: 50%" value="<?php echo $user_data['studentID']; ?>" required>
+                <label for="studentID">Student ID<span style="font-size: .7rem; padding-left: 10px;"> ( 22-XXXXX )</span></label>
+                    <input type="text" class="form-control" id="studentID" name="studentID" value="<?php echo $user_data['studentID']; ?>">
                 </div>
-                <div class="form-group-inline" style="margin-top: -5px;">
+                <div class="form-group-inline">
                     <label class="text-center" for="sex">Sex</label>
-                    <select class="form-control portfolio-textarea" id="sex" name="sex" style="width: 50%">
+                    <select class="form-control portfolio-textarea" id="sex" name="sex" style="margin-top: 0px;">
+                        <option value="">--Select--</option>
                         <option value="Male" <?php if($user_data['sex'] == 'Male') echo 'selected'; ?>>Male</option>
                         <option value="Female" <?php if($user_data['sex'] == 'Female') echo 'selected'; ?>>Female</option>
                     </select>
                 </div>
-
+                <!-- Religion -->
+                <div class="form-group-inline">
+                    <label for="religion">Religion<span style="font-size: .6rem; padding-left: 10px; font-weight: bold;"> Ex: ( Roman Catholic, Iglesia ni Cristo )</span></label>
+                    <input type="text" class="form-control" id="religion" name="religion" value="<?php echo $user_data['religion']; ?>">
+                </div>
                 <div class="form-group-inline">
                     <label for="birthday">Birthday</label>
-                    <input type="date" class="form-control" id="birthday" name="birthday" style="width: 70%" value="<?php echo $user_data['birthday']; ?>" required>
+                    <input type="date" class="form-control" id="birthday" name="birthday" value="<?php echo $user_data['birthday']; ?>">
+                </div>
+                <!-- Birthplace -->
+                <div class="form-group-inline">
+                    <label for="birthplace">Birthplace</label>
+                    <input type="text" class="form-control" id="birthplace" name="birthplace" value="<?php echo $user_data['birthplace']; ?>">
+                </div>
+            </div>
+            <!-- Citizenship -->
+            <div class="form-row">
+                <div class="form-group-inline">
+                    <label for="citizenship">Citizenship<span style="font-size: .7rem; padding-left: 10px; font-weight: bold;"> Ex: ( Filipino )</span></label>
+                    <input type="text" class="form-control" id="citizenship" name="citizenship" value="<?php echo $user_data['citizenship']; ?>">
+                </div>
+                <!-- Civil Status -->
+                <div class="form-group-inline">
+                    <label for="civil_status">Civil Status<span style="font-size: .6rem; padding-left: 10px; font-weight: bold;"> Ex: ( Single, Married, Widowed)</span></label>
+                    <select class="form-control portfolio-textarea" id="civil_status" name="civil_status" style="margin-top: 0px;">
+                        <option value="Single" <?php if($user_data['civil_status'] == 'Single') echo 'selected'; ?>>Single</option>
+                        <option value="Married" <?php if($user_data['civil_status'] == 'Married') echo 'selected'; ?>>Married</option>
+                        <option value="Divorced" <?php if($user_data['civil_status'] == 'Divorced') echo 'selected'; ?>>Divorced</option>
+                        <option value="Separated" <?php if($user_data['civil_status'] == 'Separated') echo 'selected'; ?>>Separated</option>
+                        <option value="Widowed" <?php if($user_data['civil_status'] == 'Widowed') echo 'selected'; ?>>Widowed</option>
+                        <option value="Annulled" <?php if($user_data['civil_status'] == 'Annulled') echo 'selected'; ?>>Annulled</option>
+                    </select>
+                    <!-- We are no longer going to use this
+                    <input type="text" class="form-control" id="civil_status" name="civil_status" value="<?php echo $user_data['civil_status']; ?>" readonly> -->
                 </div>
             </div>
             <div class="section-divider"></div>
-
-            <h3>Contact Information</h3>
+                    <!-- Address label and input box -->
+                <div class="form-group-inline centered">
+            <label class="text-center" for="address">Address</label>
+        <textarea class="form-control portfolio-textarea" id="address" name="address" rows="3"><?php echo htmlspecialchars($user_data['address']); ?></textarea>
+    </div>
+    <div class="section-divider"></div>
+        <h3>Contact Information</h3>
             <div class="section-divider"></div>
             <div class="form-row">
                 <div class="form-group-inline">
                     <label for="contact_no">Phone Number</label>
-                    <input type="text" class="form-control" id="contact_no" name="contact_no" style="width: 60%" value="<?php echo $user_data['contact_no']; ?>" required>
+                    <input type="text" class="form-control" id="contact_no" name="contact_no" value="<?php echo $user_data['contact_no']; ?>">
                 </div>
                 <div class="form-group-inline">
                     <label for="email">Email</label>
                     <input type="email" class="form-control" id="email" name="email" value="<?php echo $user_data['email']; ?>" readonly>
                 </div>
             </div>
-            <div class="section-divider"></div>
-
-            <!-- Address label and input box -->
-            <div class="form-group-inline centered">
-                <label class="text-center" for="address">Address</label>
-                <textarea class="form-control portfolio-textarea" id="address" name="address" rows="3"><?php echo htmlspecialchars($user_data['address']); ?></textarea>
-            </div>
-
-            <div class="section-divider"></div>
-
-            <h3>Education</h3>
-            <div class="section-divider"></div>
-            <div class="form-row">
-                <div class="form-group-inline">
-                    <label for="school_name">School Name</label>
-                    <input type="text" class="form-control" id="school_name" name="school_name" value="<?php echo $user_data['school_name']; ?>" required>
-                </div>
-                <div class="form-group-inline" style="margin-top: -5px;">
+        <div class="section-divider"></div>
+    <h3>Education</h3>
+        <div class="section-divider"></div>
+        <div class="form-group-inline centered">
                     <label class="text-center" for="course">Course</label>
                     <select class="form-control portfolio-textarea" id="course" name="course">
                         <option value="BS Computer Engineering" <?php if($user_data['course'] == 'BS Computer Engineering') echo 'selected'; ?>>BS Computer Engineering</option>
                         <option value="BS Information Technology" <?php if($user_data['course'] == 'BS Information Technology') echo 'selected'; ?>>BS Information Technology</option>
                     </select>
                 </div>
-            </div>
             <div class="section-divider"></div>
-
+            <div class="form-row">
+                <!-- START -->
+            <div class="form-group-inline">
+                    <label for="primary_education">Primary Education<span style="font-size: .7rem; padding-left: 10px; font-weight: bold;"> ( Elementary )</span></label>
+                    <input type="text" class="form-control" id="primary_education" name="primary_education" value="<?php echo $user_data['primary_education']; ?>">
+                </div>
+                <div class="form-group-inline">
+                    <label for="primary_year">Year<span style="font-size: .7rem; padding-left: 10px; font-weight: bold;"> ( Year Started - Year Graduated )</span></label>
+                    <input type="text" class="form-control" id="primary_year" name="primary_year" value="<?php echo $user_data['primary_year']; ?>">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group-inline">
+                    <label for="secondary_education">Secondary Education<span style="font-size: .7rem; padding-left: 10px; font-weight: bold;"> ( Highschool )</span></label>
+                    <input type="text" class="form-control" id="secondary_education" name="secondary_education" value="<?php echo $user_data['secondary_education']; ?>">
+                </div>
+                <div class="form-group-inline">
+                    <label for="secondary_year">Year</label>
+                    <input type="text" class="form-control" id="secondary_year" name="secondary_year" value="<?php echo $user_data['secondary_year']; ?>">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group-inline">
+                    <label for="tertiary_education">Tertiary Education<span style="font-size: .7rem; padding-left: 10px; font-weight: bold;"> ( College or University )</span></label>
+                    <input type="text" class="form-control" id="tertiary_education" name="tertiary_education" value="<?php echo $user_data['tertiary_education']; ?>">
+                </div>
+                <div class="form-group-inline">
+                    <label for="tertiary_year">Year</label>
+                    <input type="text" class="form-control" id="tertiary_year" name="tertiary_year" value="<?php echo $user_data['tertiary_year']; ?>">
+                </div>
+            </div>    
+             <!-- END    -->
+             <div class="section-divider"></div>
+            <h3>Resume Details</h3>
+            <div class="section-divider"></div>
+            <div class="form-row">
             <div class="form-group-inline centered">
-                <label class="text-center" for="professional_summary">Professional Summary or Objective</label>
-                <textarea class="form-control portfolio-textarea" id="professional_summary" name="professional_summary" rows="3"><?php echo htmlspecialchars($user_data['professional_summary']); ?></textarea>
+            <label for="objective">Objective</label>
+            <textarea class="form-control portfolio-textarea" id="objective" name="objective" rows="3" placeholder="Example: To develop my career in a reputable company with integrity and with an opportunity for personal and professional development." style="font-size: 12px;"><?php echo $user_data['objective']; ?></textarea>
+        </div>
+        <div class="form-group-inline">
+            <label for="languages_spoken">Languages Spoken</label>
+            <textarea class="form-control portfolio-textarea" id="languages_spoken" name="languages_spoken" rows="3" style="font-size: 12px; height: 70px;" placeholder="Example: English and Filipino." style="font-size: 12px;"><?php echo $user_data['languages_spoken']; ?></textarea>
+        </div>
             </div>
             <div class="section-divider"></div>
-
-            <div class="form-row">
-                <div class="form-group-inline">
-                    <label for="skills">Skills</label>
-                    <textarea class="form-control" id="skills" name="skills" rows="3"><?php echo $user_data['skills']; ?></textarea>
-                </div>
-                <div class="form-group-inline">
-                    <label for="experience">Experience</label>
-                    <textarea class="form-control" id="experience" name="experience" rows="3"><?php echo $user_data['experience']; ?></textarea>
-                </div>
-            </div>
-            <div class="section-divider"></div>
-
-            <div class="form-row">
-                <div class="form-group-inline">
-                    <label for="projects">Projects</label>
-                    <textarea class="form-control" id="projects" name="projects" rows="3"><?php echo $user_data['projects']; ?></textarea>
-                </div>
-                <div class="form-group-inline">
-                    <label for="certifications">Certifications</label>
-                    <textarea class="form-control" id="certifications" name="certifications" rows="3"><?php echo $user_data['certifications']; ?></textarea>
-                </div>
-            </div>
-            <div class="section-divider"></div>
-            <div class="form-row">
-                <div class="form-group-inline">
-                    <label for="honors_awards">Honors and Awards</label>
-                    <textarea class="form-control" id="honors_awards" name="honors_awards" rows="3"><?php echo $user_data['honors_awards']; ?></textarea>
-                </div>
-                <div class="form-group-inline">
-                    <label for="extracurricular_activities">Extracurricular Activities</label>
-                    <textarea class="form-control" id="extracurricular_activities" name="extracurricular_activities" rows="3"><?php echo $user_data['extracurricular_activities']; ?></textarea>
-                </div>
-                <div class="form-group-inline centered">
-                    <label class="text-center" for="portfolio">Portfolio (Optional)</label>
-                    <textarea class="form-control portfolio-textarea" id="portfolio" name="portfolio" rows="3"><?php echo htmlspecialchars($user_data['portfolio']); ?></textarea>
-                </div>
-            </div>
-            <div class="section-divider"></div>
+<!-- END -->
             <button type="submit" class="btn btn-primary btn-block">Update Profile</button>
         </form>
 

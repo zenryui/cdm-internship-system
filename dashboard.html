@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --color-primary: #7380ec;
+            --color-white: #fff;
+            --color-info: #7d8da1;
+            --color-light: rgba(132, 139, 200, 0.18);
+            --color-background: #f6f6f9;
+            --border-radius-2: 1.2rem;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f6f6f9;
+            color: #6c757d;
+        }
+        .container {
+            max-width: 700px;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .sidebar {
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 240px;
+            background-color: var(--color-primary);
+            padding: 20px;
+            color: var(--color-white);
+        }
+        .sidebar .menu-item {
+            margin-bottom: 20px;
+        }
+        .sidebar .menu-item a {
+            color: var(--color-white);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        .sidebar .menu-item a:hover {
+            color: var(--color-light);
+        }
+        .content {
+            margin-left: 260px;
+            padding: 20px;
+        }
+        .header {
+            margin-bottom: 20px;
+        }
+        .header h2 {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+        }
+        .card {
+            border: none;
+            border-radius: var(--border-radius-2);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            font-weight: 500;
+        }
+        .card-body {
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h4>Colegio De Montalban</h4>
+        <div class="menu-item"><a href="#">Profile Management</a></div>
+        <div class="menu-item"><a href="#">Internship Application</a></div>
+        <div class="menu-item"><a href="#">Notification</a></div>
+        <div class="menu-item"><a href="#">Change Password</a></div>
+        <div class="menu-item"><a href="#">Generate PDF</a></div>
+        <div class="menu-item"><a href="#">Logout</a></div>
+    </div>
+    <div class="content">
+        <div class="header">
+            <h2>Dashboard</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Users</div>
+                    <div class="card-body">13</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Categories</div>
+                    <div class="card-body">3</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Events</div>
+                    <div class="card-body">4</div>
+                </div>
+            </div>
+        </div>
+        <div class="header">
+            <h2>Recent User Added</h2>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Student no.</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Age</th>
+                    <th>Registered Events</th>
+                    <th>Added at</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>22-43443</td>
+                    <td>John Michael Abanil</td>
+                    <td>Male</td>
+                    <td>24</td>
+                    <td>0</td>
+                    <td>2023-12-14 on 09:12 PM</td>
+                </tr>
+                <tr>
+                    <td>22-22455</td>
+                    <td>Johny Abanil</td>
+                    <td>Male</td>
+                    <td>25</td>
+                    <td>1</td>
+                    <td>2023-12-13 on 04:29 PM</td>
+                </tr>
+                <tr>
+                    <td>22-02279</td>
+                    <td>John Solsona</td>
+                    <td>Male</td>
+                    <td>18</td>
+                    <td>1</td>
+                    <td>2023-12-13 on 01:20 PM</td>
+                </tr>
+                <tr>
+                    <td>22-43535</td>
+                    <td>Joshua Tantan</td>
+                    <td>Male</td>
+                    <td>18</td>
+                    <td>0</td>
+                    <td>2023-11-27 on 12:13 PM</td>
+                </tr>
+                <tr>
+                    <td>22-45335</td>
+                    <td>Ian Abanil</td>
+                    <td>Male</td>
+                    <td>18</td>
+                    <td>0</td>
+                    <td>2023-11-27 on 10:59 AM</td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-primary">View All</button>
+    </div>
+</body>
+</html>
