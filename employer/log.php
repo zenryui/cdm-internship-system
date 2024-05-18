@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-// Check if the user is not logged in
-if (!isset($_SESSION['user_data'])) {
-    // Redirect the user to the login page
+// Check if the employer is not logged in
+if (!isset($_SESSION['employer_data'])) {
+    // Redirect the employer to the login page
     header("Location: index.php");
     exit; // Stop further execution
 }
 
-// If the user is logged in, display the log.php content
+// If the employer is logged in, display the log.php content
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +30,7 @@ if (!isset($_SESSION['user_data'])) {
         <input type="submit" value="Profile Management">
     </form>
 
-    <form action="post_intern.php" method="post">
+    <form action="post_internship.php" method="post">
         <input type="submit" value="Post Internship Openings">
     </form>
 

@@ -4,73 +4,69 @@ session_start();
 
 function sanitize($data)
 {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
 }
 
-if (isset($_POST['login'])) {                                                                                                                        
-  $email = sanitize($_POST['email']);
-  $inputpassword = sanitize($_POST['password']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
+    $email = sanitize($_POST['email']);
+    $inputpassword = sanitize($_POST['password']);
 
-  // Select relevant data from the activated_users table
-  $sql = "SELECT * FROM activated_employer WHERE email = '$email' AND active = 1";
-  $result = mysqli_query($conn, $sql);
+    // Select relevant data from the activated_employer table
+    $sql = "SELECT * FROM activated_employer WHERE email = ? AND active = 1";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-  $errors = []; // Array to store errors
+    $errors = []; // Array to store errors
 
-  if (mysqli_num_rows($result) > 0) {
-    // Fetch user data
-    $user_data = mysqli_fetch_assoc($result);
+    if ($result->num_rows > 0) {
+        // Fetch employer data
+        $employer_data = $result->fetch_assoc();
 
-    // Verify the entered password with the hashed password
-    if (!password_verify($inputpassword, $user_data['password'])) {
-      // Incorrect password
-      $errors[] = "Wrong password!";
+        // Verify the entered password with the hashed password
+        if (!password_verify($inputpassword, $employer_data['password'])) {
+            // Incorrect password
+            $errors[] = "Wrong password!";
+        }
+    } else {
+        // Email does not exist
+        $errors[] = "Email does not exist!";
     }
-  } else {
-    // Email does not exist
-    $errors[] = "Email does not exist!";
-  }
 
-  if (empty($errors)) {
-    // Check if both email and password are incorrect
-    if (mysqli_num_rows($result) == 0) {
-      $errors[] = "Wrong credentials!";
+    if (empty($errors)) {
+        // Successful login
+        $_SESSION['employer_data'] = $employer_data;
+        echo json_encode(['status' => 'success']);
+        exit();
+    } else {
+        // Return errors as JSON response
+        echo json_encode(['status' => 'error', 'errors' => $errors]);
+        exit();
     }
-  }
-
-  if (!empty($errors)) {
-    // Return errors as JSON response
-    echo json_encode(['status' => 'error', 'errors' => $errors]);
-    exit();
-  } else {
-    // Successful login
-    $_SESSION['user_data'] = $user_data;
-    echo json_encode(['status' => 'success']);
-    exit();
-  }
 }
 ?>
 
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Bootstrap CSS -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- sweet alert -->
-  <link rel="stylesheet" href="../assets/css/login.css">
-  <link rel="shortcut icon" href="../assets/img/id-card.png">
+    <!-- Bootstrap CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- sweet alert -->
+    <link rel="stylesheet" href="../assets/css/login.css">
+    <link rel="shortcut icon" href="../assets/img/id-card.png">
 
-  <title>Login</title>
+    <title>Login</title>
 </head>
 <body>
 <div class="login-container">
@@ -94,11 +90,9 @@ if (isset($_POST['login'])) {
         <p class="goto-signup-label">Don't have an account yet?</p>
         <a href="signup.php" class="goto-signup-link">Sign up</a>
 
-
         <!-- Alert container for errors -->
         <div class="alert-container" id="alertContainer">
         </div>
-
     </form>
 </div>
 
@@ -150,9 +144,7 @@ $(document).ready(function() {
         });
     });
 });
-
 </script>
 
 </body>
 </html>
-
