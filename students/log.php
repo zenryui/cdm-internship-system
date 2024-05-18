@@ -30,7 +30,7 @@ if (!isset($_SESSION['user_data'])) {
         <input type="submit" value="Profile Management">
     </form>
 
-    <form action="post_internship.php" method="post">
+    <form action="student-view-internships.php" method="post">
         <input type="submit" value="Internship Application">
     </form>
 
