@@ -88,20 +88,20 @@ $(document).ready(function () {
         });
     });
 
-    // Handle save changes button click in modal
-    $('#modalForm').on('submit', function (e) {
-        e.preventDefault();
-        var id = $('#modalInternshipID').val();
-        $.ajax({
-            type: 'POST',
-            url: 'connection.php',
-            data: $(this).serialize() + '&action=update',
-            success: function (response) {
-                $('#internshipModal').modal('hide');
-                loadInternships();
-            }
-        });
+// Handle save changes button click in modal
+$('#modalForm').on('submit', function (e) {
+    e.preventDefault();
+    var id = $('#modalInternshipID').val();
+    $.ajax({
+        type: 'POST',
+        url: 'connection.php',
+        data: $(this).serialize() + '&action=update',
+        success: function (response) {
+            $('#internshipModal').modal('hide');
+            loadInternships();
+        }
     });
+});
 
 
     // Handle delete button click
