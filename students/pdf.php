@@ -1,6 +1,6 @@
 <?php
 require_once("../connection/connection.php");
-require_once '../vendor/autoload.php'; // Include Dompdf library
+require_once '../dompdf/vendor/autoload.php'; // Include Dompdf library
 
 use Dompdf\Dompdf;
 
