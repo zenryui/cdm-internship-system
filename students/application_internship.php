@@ -23,10 +23,29 @@ $stmt->fetch();
 $stmt->close();
 
 // Fetch internships and their corresponding employer details
-$sql = "SELECT i.Internship_ID, i.Requirements, i.Duration, i.Description, i.Title, i.Company_ID, e.name, e.Location 
-        FROM internship i 
-        JOIN activated_employer e ON i.Company_ID = e.Company_ID";
-$result = $conn->query($sql);
+$internshipsQuery = "
+    SELECT i.Internship_ID, i.Requirements, i.Duration, i.Description, i.Title, i.Company_ID, e.name, e.Location 
+    FROM internship i 
+    JOIN activated_employer e ON i.Company_ID = e.Company_ID";
+$internshipsResult = $conn->query($internshipsQuery);
+
+// Fetch student's application history
+$applicationsQuery = "
+SELECT ai.id, ai.internship_ID, ai.title, ai.company_ID, ai.company_name, ai.status, ai.resume_path
+FROM application_internship ai
+WHERE ai.student_email = ?";
+$applicationsStmt = $conn->prepare($applicationsQuery);
+$applicationsStmt->bind_param("s", $student_email);
+$applicationsStmt->execute();
+$applicationsResult = $applicationsStmt->get_result();
+
+$appliedInternships = [];
+$internshipStatus = [];
+while ($row = $applicationsResult->fetch_assoc()) {
+    $appliedInternships[] = $row['internship_ID'];
+    $internshipStatus[$row['internship_ID']] = $row['status'];
+}
+$applicationsStmt->close();
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +62,13 @@ $result = $conn->query($sql);
 <body>
 <div class="container mt-4">
     <h2>Available Internships</h2>
-    <table class="table table-bordered">
+    <form class="mb-3">
+        <div class="input-group">
+            <input type="text" class="form-control" id="search" placeholder="Search by ID, duration, title, company, location">
+        </div>
+    </form>
+    <!-- <div id="no-results" class="alert alert-warning" style="display: none;">No Results</div> -->
+    <table class="table table-bordered" id="internships-table">
         <thead>
             <tr>
                 <th>Internship ID</th>
@@ -57,8 +82,9 @@ $result = $conn->query($sql);
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody>
-            <?php while($row = $result->fetch_assoc()): ?>
+        <!-- <div id="no-results" class="alert alert-warning" style="display: none;">No Results</div> -->
+        <tbody id="internships-tbody">
+            <?php while($row = $internshipsResult->fetch_assoc()): ?>
                 <tr>
                     <td><?php echo $row['Internship_ID']; ?></td>
                     <td><?php echo $row['Requirements']; ?></td>
@@ -69,16 +95,58 @@ $result = $conn->query($sql);
                     <td><?php echo $row['name']; ?></td>
                     <td><?php echo $row['Location']; ?></td>
                     <td>
-                        <button class="btn btn-info apply-btn" 
-                                data-bs-toggle="modal" 
-                                data-bs-target="#applyModal" 
-                                data-id="<?php echo $row['Internship_ID']; ?>" 
-                                data-title="<?php echo $row['Title']; ?>" 
-                                data-company-id="<?php echo $row['Company_ID']; ?>" 
-                                data-company-name="<?php echo $row['name']; ?>">Apply</button>
+                        <?php if (in_array($row['Internship_ID'], $appliedInternships) && $internshipStatus[$row['Internship_ID']] == 'Pending'): ?>
+                            <button class="btn btn-secondary" disabled>Applied</button>
+                        <?php else: ?>
+                            <button class="btn btn-info apply-btn" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#applyModal" 
+                                    data-id="<?php echo $row['Internship_ID']; ?>" 
+                                    data-title="<?php echo $row['Title']; ?>" 
+                                    data-company-id="<?php echo $row['Company_ID']; ?>" 
+                                    data-company-name="<?php echo $row['name']; ?>">Apply</button>
+                        <?php endif; ?>
                     </td>
                 </tr>
             <?php endwhile; ?>
+        </tbody>
+    </table>
+    
+    <div id="no-results" class="alert alert-warning" style="display: none;">No Results</div>
+
+    <h2>Application History</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Internship ID</th>
+                <th>Title</th>
+                <th>Company ID</th>
+                <th>Company Name</th>
+                <th>Status</th>
+                <th>Resume Path</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($applicationsResult as $application): ?>
+                <tr>
+                    <td><?php echo $application['id']; ?></td>
+                    <td><?php echo $application['internship_ID']; ?></td>
+                    <td><?php echo $application['title']; ?></td>
+                    <td><?php echo $application['company_ID']; ?></td>
+                    <td><?php echo $application['company_name']; ?></td>
+                    <td><?php echo $application['status']; ?></td>
+                    <td><a href="<?php echo $application['resume_path']; ?>" target="_blank">View Resume</a></td>
+                    <td>
+                        <?php if ($application['status'] == 'Pending'): ?>
+                            <button class="btn btn-danger cancel-btn" data-id="<?php echo $application['id']; ?>">Cancel</button>
+                        <?php else: ?>
+                            <button class="btn btn-secondary" disabled>Cancel</button>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </div>
@@ -125,10 +193,7 @@ $result = $conn->query($sql);
                         <label for="resume" class="form-label">Upload Resume</label>
                         <input type="file" class="form-control" id="resume" name="resume" required>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Submit Application</button>
-                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Application</button>
                 </form>
             </div>
         </div>
@@ -136,15 +201,45 @@ $result = $conn->query($sql);
 </div>
 
 <script>
-    $(document).ready(function() {
-        $('.apply-btn').on('click', function() {
-            var data = $(this).data();
-            $('#internship_ID').val(data.id);
-            $('#title').val(data.title);
-            $('#company_ID').val(data.companyId);
-            $('#company_name').val(data.companyName);
-        });
+$(document).ready(function() {
+    $('.apply-btn').on('click', function() {
+        var internshipID = $(this).data('id');
+        var title = $(this).data('title');
+        var companyID = $(this).data('company-id');
+        var companyName = $(this).data('company-name');
+
+        $('#internship_ID').val(internshipID);
+        $('#title').val(title);
+        $('#company_ID').val(companyID);
+        $('#company_name').val(companyName);
     });
+
+    $('.cancel-btn').on('click', function() {
+        var applicationID = $(this).data('id');
+        // Add AJAX call here to handle cancellation
+    });
+
+    $('#search').on('input', function() {
+        var searchTerm = $(this).val().toLowerCase();
+        var hasResults = false;
+
+        $('#internships-tbody tr').each(function() {
+            var rowText = $(this).text().toLowerCase();
+            if (rowText.includes(searchTerm)) {
+                $(this).show();
+                hasResults = true;
+            } else {
+                $(this).hide();
+            }
+        });
+
+        if (hasResults) {
+            $('#no-results').hide();
+        } else {
+            $('#no-results').show();
+        }
+    });
+});
 </script>
 </body>
 </html>

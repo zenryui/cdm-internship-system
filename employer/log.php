@@ -34,7 +34,7 @@ if (!isset($_SESSION['employer_data'])) {
         <input type="submit" value="Post Internship Openings">
     </form>
 
-    <form action="see_applications.php" method="post">
+    <form action="application_list.php" method="post">
         <input type="submit" value="See Applications">
     </form>
 

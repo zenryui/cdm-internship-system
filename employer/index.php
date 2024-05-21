@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $inputpassword = sanitize($_POST['password']);
 
     // Select relevant data from the activated_employer table
-    $sql = "SELECT * FROM activated_employer WHERE email = ? AND active = 1";
+    $sql = "SELECT Company_ID, name, email, password, active FROM activated_employer WHERE email = ? AND active = 1";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -49,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     }
 }
 ?>
+
 
 <!doctype html>
 <html lang="en">

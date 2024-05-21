@@ -9,7 +9,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $internship_ID = $_POST['internship_ID'];
     $title = $_POST['title'];
     $company_ID = $_POST['company_ID'];
-    $company_name = $_POST['company_name'];
+
+    // Fetch the company name using a JOIN query
+    $company_name_query = $conn->prepare("SELECT e.name FROM internship i JOIN activated_employer e ON i.Company_ID = e.Company_ID WHERE i.Internship_ID = ?");
+    $company_name_query->bind_param("i", $internship_ID);
+    $company_name_query->execute();
+    $company_name_query->bind_result($company_name);
+    $company_name_query->fetch();
+    $company_name_query->close();
 
     // Ensure the uploads directory exists
     $upload_dir = 'uploads/';
@@ -22,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (move_uploaded_file($_FILES['resume']['tmp_name'], $resume_path)) {
         // Insert application data into the database
         $stmt = $conn->prepare("INSERT INTO application_internship (student_name, student_email, student_course, internship_ID, title, company_ID, company_name, resume_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssissis", $student_name, $student_email, $student_course, $internship_ID, $title, $company_ID, $company_name, $resume_path);
+        $stmt->bind_param("sssissss", $student_name, $student_email, $student_course, $internship_ID, $title, $company_ID, $company_name, $resume_path);
 
         if ($stmt->execute()) {
             echo "Application submitted successfully.";

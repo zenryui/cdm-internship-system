@@ -1,4 +1,6 @@
 <?php
+session_start(); // Add session_start() at the beginning to access session data
+
 $servername = "localhost";
 $username = "root";
 $password = "2474";
@@ -21,7 +23,13 @@ if (isset($_POST['action'])) {
         $description = $conn->real_escape_string($_POST['description']);
         $requirements = $conn->real_escape_string($_POST['requirements']);
         $duration = $conn->real_escape_string($_POST['duration']);
-        $company_id = 1; // Assuming the company_id is 1 for now, change as needed
+        
+        // Get the company_id from the session data
+        if (isset($_SESSION['employer_data'])) {
+            $company_id = $_SESSION['employer_data']['Company_ID'];
+        } else {
+            die("Error: Employer is not logged in.");
+        }
 
         $sql = "INSERT INTO internship (Title, Description, Requirements, Duration, Company_ID) VALUES ('$title', '$description', '$requirements', '$duration', '$company_id')";
         

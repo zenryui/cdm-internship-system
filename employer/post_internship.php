@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../connection/connection.php'; // Include your database connection file
+include '../connection/connection.php'; // Ensure this path is correct based on your file structure
 
 // Check if the employer is logged in
 if (!isset($_SESSION['employer_data'])) {
@@ -22,26 +22,6 @@ $stmt->execute();
 $result = $stmt->get_result();
 if ($result === false) {
     die("Error executing statement: " . $stmt->error);
-}
-
-// Fetch applications for internships posted by the employer
-$sql_applications = "SELECT id, student_name, student_email, student_course, internship_ID, title, company_ID, company_name, status, resume_path FROM application_internship WHERE company_ID = ?";
-$stmt_applications = $conn->prepare($sql_applications);
-if ($stmt_applications === false) {
-    die("Error preparing statement: " . $conn->error);
-}
-$stmt_applications->bind_param("i", $company_id);
-$stmt_applications->execute();
-$result_applications = $stmt_applications->get_result();
-if ($result_applications === false) {
-    die("Error executing statement: " . $stmt_applications->error);
-}
-
-// Debug output for verification
-if ($result_applications->num_rows > 0) {
-    echo "Data fetched successfully.";
-} else {
-    echo "No data found.";
 }
 ?>
 
@@ -100,40 +80,6 @@ if ($result_applications->num_rows > 0) {
             <?php endwhile; ?>
         </tbody>
     </table>
-
-    <h2>Student Applications</h2>
-    <table class="table table-bordered" id="applicationsTable">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Student Name</th>
-                <th>Student Email</th>
-                <th>Student Course</th>
-                <th>Internship ID</th>
-                <th>Title</th>
-                <th>Company ID</th>
-                <th>Company Name</th>
-                <th>Status</th>
-                <th>Resume</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php while($row_app = $result_applications->fetch_assoc()): ?>
-                <tr>
-                    <td><?php echo $row_app['id']; ?></td>
-                    <td><?php echo $row_app['student_name']; ?></td>
-                    <td><?php echo $row_app['student_email']; ?></td>
-                    <td><?php echo $row_app['student_course']; ?></td>
-                    <td><?php echo $row_app['internship_ID']; ?></td>
-                    <td><?php echo $row_app['title']; ?></td>
-                    <td><?php echo $row_app['company_ID']; ?></td>
-                    <td><?php echo $row_app['company_name']; ?></td>
-                    <td><?php echo $row_app['status']; ?></td>
-                    <td><a href="<?php echo $row_app['resume_path']; ?>" target="_blank">View Resume</a></td>
-                </tr>
-            <?php endwhile; ?>
-        </tbody>
-    </table>
 </div>
 
 <!-- View/Edit Modal -->
@@ -142,7 +88,7 @@ if ($result_applications->num_rows > 0) {
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="modalTitle">View Internship</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;"></button>
+                <button type="button" class="close" data-dismiss="modal">&times</button>
             </div>
             <div class="modal-body">
                 <form id="modalForm" method="post" action="update_internship.php">
@@ -163,13 +109,36 @@ if ($result_applications->num_rows > 0) {
                         <label for="modalDurationInput">Duration:</label>
                         <input type="text" class="form-control" id="modalDurationInput" name="duration" required>
                     </div>
-                    <button type="submit" class="btn btn-primary" id="modalSaveBtn">Save Changes</button>
-                </form>
-            </div>
-        </div>
-    </div>
+                    <button type="submit" class="btn btn-primary" id="modalSave
+Button">Save changes</button>
+</form>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+</div>
+</div>
 </div>
 
-<script src="post_internship.js"></script>
+</div>
+<script>
+$(document).ready(function() {
+    $('#internshipModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var id = button.data('id');
+        var title = button.data('title');
+        var description = button.data('description');
+        var requirements = button.data('requirements');
+        var duration = button.data('duration');
+        
+        var modal = $(this);
+        modal.find('.modal-title').text('View/Edit Internship');
+        modal.find('#modalInternshipID').val(id);
+        modal.find('#modalTitleInput').val(title);
+        modal.find('#modalDescriptionInput').val(description);
+        modal.find('#modalRequirementsInput').val(requirements);
+        modal.find('#modalDurationInput').val(duration);
+    });
+});
+</script>
 </body>
 </html>

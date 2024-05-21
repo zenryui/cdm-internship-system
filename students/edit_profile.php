@@ -144,10 +144,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <style>
+
+        :root{
+    --color-primary: #7380ec;
+    --color-white: #fff;
+    --color-info: #7d8da1;
+    --color-light: rgba(132, 139, 200, 0.18);
+    --color-background: #f6f6f9;
+    --border-radius-2: 1.2rem;
+        }
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #f6f6f9;
-            color: #6c757d;
+            color: #7d8da1;
         }
         .container {
             max-width: 700px;
@@ -169,6 +178,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         .form-control {
             font-size: 0.9rem;
+            text-align: center;
+            color: #7d8da1;
+            font-weight: 600;
         }
         .alert {
             margin-top: 20px;
@@ -200,6 +212,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             flex: 1 1 45%;
             margin-right: 10px;
             margin-bottom: 1rem;
+            color: #7d8da1;
         }
         .portfolio-textarea {
             width: 100%;
@@ -237,12 +250,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="section-divider"></div>
             <div class="form-row">
                 <div class="form-group-inline">
-                <label for="name">Full Name<span style="font-size: .7rem; padding-left: 10px;"> ( First Name, M.I., Last Name )</span></label>
-                    <input type="text" class="form-control" id="name" name="name" value="<?php echo $user_data['name']; ?>">
+                <label for="name">Full Name</label>
+                    <input type="text" class="form-control" id="name" name="name"placeholder=" Juan D. Cruz" value="<?php echo $user_data['name']; ?>">
                 </div>
                 <div class="form-group-inline">
-                <label for="studentID">Student ID<span style="font-size: .7rem; padding-left: 10px;"> ( 22-XXXXX )</span></label>
-                    <input type="text" class="form-control" id="studentID" name="studentID" value="<?php echo $user_data['studentID']; ?>">
+                <label for="studentID">Student ID</label>
+                    <input type="text" class="form-control" id="studentID" name="studentID" placeholder="22-00000" value="<?php echo $user_data['studentID']; ?>">
                 </div>
                 <div class="form-group-inline">
                     <label class="text-center" for="sex">Sex</label>
@@ -254,28 +267,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <!-- Religion -->
                 <div class="form-group-inline">
-                    <label for="religion">Religion<span style="font-size: .6rem; padding-left: 10px; font-weight: bold;"> Ex: ( Roman Catholic, Iglesia ni Cristo )</span></label>
-                    <input type="text" class="form-control" id="religion" name="religion" value="<?php echo $user_data['religion']; ?>">
+                    <label for="religion">Religion</label>
+                    <input type="text" class="form-control" id="religion" name="religion" placeholder="Roman Catholic" value="<?php echo $user_data['religion']; ?>">
                 </div>
                 <div class="form-group-inline">
                     <label for="birthday">Birthday</label>
-                    <input type="date" class="form-control" id="birthday" name="birthday" value="<?php echo $user_data['birthday']; ?>">
+                    <input type="date" class="form-control" id="birthday" name="birthday" placeholder="MM-DD-YY" value="<?php echo $user_data['birthday']; ?>">
                 </div>
                 <!-- Birthplace -->
                 <div class="form-group-inline">
                     <label for="birthplace">Birthplace</label>
-                    <input type="text" class="form-control" id="birthplace" name="birthplace" value="<?php echo $user_data['birthplace']; ?>">
+                    <input type="text" class="form-control" id="birthplace" name="birthplace" placeholder="City or Province" value="<?php echo $user_data['birthplace']; ?>">
                 </div>
             </div>
             <!-- Citizenship -->
             <div class="form-row">
                 <div class="form-group-inline">
-                    <label for="citizenship">Citizenship<span style="font-size: .7rem; padding-left: 10px; font-weight: bold;"> Ex: ( Filipino )</span></label>
-                    <input type="text" class="form-control" id="citizenship" name="citizenship" value="<?php echo $user_data['citizenship']; ?>">
+                    <label for="citizenship">Citizenship</label>
+                    <input type="text" class="form-control" id="citizenship" name="citizenship" placeholder="Filipino" value="<?php echo $user_data['citizenship']; ?>">
                 </div>
                 <!-- Civil Status -->
                 <div class="form-group-inline">
-                    <label for="civil_status">Civil Status<span style="font-size: .6rem; padding-left: 10px; font-weight: bold;"> Ex: ( Single, Married, Widowed)</span></label>
+                    <label for="civil_status">Civil Status</label>
                     <select class="form-control portfolio-textarea" id="civil_status" name="civil_status" style="margin-top: 0px;">
                         <option value="Single" <?php if($user_data['civil_status'] == 'Single') echo 'selected'; ?>>Single</option>
                         <option value="Married" <?php if($user_data['civil_status'] == 'Married') echo 'selected'; ?>>Married</option>
@@ -300,11 +313,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-row">
                 <div class="form-group-inline">
                     <label for="contact_no">Phone Number</label>
-                    <input type="text" class="form-control" id="contact_no" name="contact_no" value="<?php echo $user_data['contact_no']; ?>">
+                    <input type="text" class="form-control" id="contact_no" name="contact_no" placeholder="Mobile Number" value="<?php echo $user_data['contact_no']; ?>">
                 </div>
                 <div class="form-group-inline">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" value="<?php echo $user_data['email']; ?>" readonly>
+                    <input type="email" class="form-control" id="email" name="email"  placeholder="Youremail@gmail.com"value="<?php echo $user_data['email']; ?>" readonly>
                 </div>
             </div>
         <div class="section-divider"></div>
@@ -321,32 +334,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-row">
                 <!-- START -->
             <div class="form-group-inline">
-                    <label for="primary_education">Primary Education<span style="font-size: .7rem; padding-left: 10px; font-weight: bold;"> ( Elementary )</span></label>
-                    <input type="text" class="form-control" id="primary_education" name="primary_education" value="<?php echo $user_data['primary_education']; ?>">
+                    <label for="primary_education">Primary Education</label>
+                    <input type="text" class="form-control" id="primary_education" name="primary_education"placeholder="Elementary" value="<?php echo $user_data['primary_education']; ?>">
                 </div>
                 <div class="form-group-inline">
-                    <label for="primary_year">Year<span style="font-size: .7rem; padding-left: 10px; font-weight: bold;"> ( Year Started - Year Graduated )</span></label>
-                    <input type="text" class="form-control" id="primary_year" name="primary_year" value="<?php echo $user_data['primary_year']; ?>">
+                    <label for="primary_year">Year</label>
+                    <input type="text" class="form-control" id="primary_year" name="primary_year" placeholder="Year Started - Year Graduate"value="<?php echo $user_data['primary_year']; ?>">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group-inline">
-                    <label for="secondary_education">Secondary Education<span style="font-size: .7rem; padding-left: 10px; font-weight: bold;"> ( Highschool )</span></label>
-                    <input type="text" class="form-control" id="secondary_education" name="secondary_education" value="<?php echo $user_data['secondary_education']; ?>">
+                    <label for="secondary_education">Secondary Education</label>
+                    <input type="text" class="form-control" id="secondary_education" name="secondary_education" placeholder="High School" value="<?php echo $user_data['secondary_education']; ?>">
                 </div>
                 <div class="form-group-inline">
                     <label for="secondary_year">Year</label>
-                    <input type="text" class="form-control" id="secondary_year" name="secondary_year" value="<?php echo $user_data['secondary_year']; ?>">
+                    <input type="text" class="form-control" id="secondary_year" name="secondary_year" placeholder="Year Started - Year Graduate"value="<?php echo $user_data['secondary_year']; ?>">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group-inline">
-                    <label for="tertiary_education">Tertiary Education<span style="font-size: .7rem; padding-left: 10px; font-weight: bold;"> ( College or University )</span></label>
-                    <input type="text" class="form-control" id="tertiary_education" name="tertiary_education" value="<?php echo $user_data['tertiary_education']; ?>">
+                    <label for="tertiary_education">Tertiary Education</label>
+                    <input type="text" class="form-control" id="tertiary_education" name="tertiary_education"placeholder="College or University" value="<?php echo $user_data['tertiary_education']; ?>">
                 </div>
                 <div class="form-group-inline">
                     <label for="tertiary_year">Year</label>
-                    <input type="text" class="form-control" id="tertiary_year" name="tertiary_year" value="<?php echo $user_data['tertiary_year']; ?>">
+                    <input type="text" class="form-control" id="tertiary_year" name="tertiary_year" placeholder="Year Started - Year Graduate"value="<?php echo $user_data['tertiary_year']; ?>">
                 </div>
             </div>    
              <!-- END    -->

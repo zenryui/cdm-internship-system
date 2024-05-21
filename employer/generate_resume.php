@@ -4,30 +4,35 @@ require_once '../vendor/autoload.php'; // Include Dompdf library
 
 use Dompdf\Dompdf;
 
-// Start session and check user login
+// Start session and check employer login
 session_start();
-if (!isset($_SESSION['user_data'])) {
+if (!isset($_SESSION['employer_data'])) {
     header("Location: index.php");
     exit;
 }
 
-$user_data = $_SESSION['user_data'];
+// Check if application_id is passed
+if (!isset($_GET['application_id'])) {
+    echo "Application ID is required.";
+    exit;
+}
 
-// Fetch user data from database
-$stmt = $conn->prepare("SELECT name, sex, address, course, studentID, birthday, contact_no, email FROM activated_student WHERE id = ?");
-$stmt->bind_param("i", $user_data['id']);
+$application_id = intval($_GET['application_id']);
+$action = isset($_GET['action']) ? $_GET['action'] : 'view'; // Get the action parameter
+
+// Fetch application data from database
+$stmt = $conn->prepare("SELECT ai.*, s.*, r.* FROM application_internship ai
+                        JOIN activated_student s ON ai.student_email = s.email
+                        JOIN table_resume r ON s.id = r.user_id
+                        WHERE ai.id = ?");
+$stmt->bind_param("i", $application_id);
 $stmt->execute();
 $result = $stmt->get_result();
 if ($result->num_rows > 0) {
-    $user_data = array_merge($user_data, $result->fetch_assoc());
-}
-
-$stmt_resume = $conn->prepare("SELECT objective, birthplace, citizenship, religion, languages_spoken, civil_status, primary_education, secondary_education, tertiary_education, primary_year, secondary_year, tertiary_year FROM table_resume WHERE user_id = ?");
-$stmt_resume->bind_param("i", $user_data['id']);
-$stmt_resume->execute();
-$result_resume = $stmt_resume->get_result();
-if ($result_resume->num_rows > 0) {
-    $user_data = array_merge($user_data, $result_resume->fetch_assoc());
+    $user_data = $result->fetch_assoc();
+} else {
+    echo "Application not found.";
+    exit;
 }
 
 // Function to get user data safely
@@ -42,7 +47,7 @@ $html = '
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Management</title>
+    <title>Applicant Resume</title>
     <style>
     body {
         font-family: "Arial", sans-serif;
@@ -54,7 +59,7 @@ $html = '
     </style>
 </head>
 <body>
-    <table style=" margin-top: 2.5rem;">
+    <table style="margin-top: 2.5rem;">
     <thead>
     <tr>
         <th></th>
@@ -62,6 +67,7 @@ $html = '
     </tr>
     <tr>
         <td style="font-size: 1.5rem; font-weight: bold;">' . getUserData('name', $user_data) . '</td>
+        <td><img src="../assets/img/id-card.png" alt="Profile Picture"</td>
     </tr>
     <tr>
         <td>' . getUserData('address', $user_data) . '</td>
@@ -70,9 +76,8 @@ $html = '
         <td>Contact No.:' . getUserData('contact_no', $user_data) . '</td>
     </tr>
     <tr>
-        <td>Email address: <span style="color: #6DC5D1;";>' . getUserData('email', $user_data) . '</span></td>
+        <td>Email address: <span style="color: #6DC5D1;">' . getUserData('email', $user_data) . '</span></td>
     </tr>
-
     </thead>
     </table>
 
@@ -167,5 +172,6 @@ $dompdf->setPaper('A4', 'portrait');
 $dompdf->render();
 
 // Output the generated PDF (inline or attachment)
-$dompdf->stream("resume.pdf", array("Attachment" => false));
+$attachment = $action === 'download';
+$dompdf->stream("applicant_resume.pdf", ["Attachment" => $attachment]);
 ?>
