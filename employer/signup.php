@@ -32,32 +32,32 @@ if (isset($_POST['signup'])) {
   $name = mysqli_real_escape_string($conn, $name);
   $email = mysqli_real_escape_string($conn, $email);
 
-  // Check if username already exists
-  $checkUsernameQuery = "SELECT * FROM pending_employer WHERE name = '$name'";
-  $resultUsername = mysqli_query($conn, $checkUsernameQuery);
-  if (mysqli_num_rows($resultUsername) > 0) {
-    $_SESSION['errors'] = "Username already taken!";
-    header('Location: signup.php');
-    exit;
-  }
+  // // Check if username already exists
+  // $checkUsernameQuery = "SELECT * FROM pending_employer WHERE name = '$name'";
+  // $resultUsername = mysqli_query($conn, $checkUsernameQuery);
+  // if (mysqli_num_rows($resultUsername) > 0) {
+  //   $_SESSION['errors'] = "Name already taken!";
+  //   header('Location: signup.php');
+  //   exit;
+  // }
 
-    // Check if username already exists
-    $checkUsernameQuery = "SELECT * FROM activated_employer WHERE name = '$name'";
-    $resultUsername = mysqli_query($conn, $checkUsernameQuery);
-    if (mysqli_num_rows($resultUsername) > 0) {
-      $_SESSION['errors'] = "Username already taken!";
-      header('Location: signup.php');
-      exit;
-    }
+  //   // Check if username already exists
+  //   $checkUsernameQuery = "SELECT * FROM activated_employer WHERE name = '$name'";
+  //   $resultUsername = mysqli_query($conn, $checkUsernameQuery);
+  //   if (mysqli_num_rows($resultUsername) > 0) {
+  //     $_SESSION['errors'] = "Username already taken!";
+  //     header('Location: signup.php');
+  //     exit;
+  //   }
 
-  // Check if email already exists
-  $checkEmailQuery = "SELECT * FROM pending_employer WHERE email = '$email'";
-  $resultEmail = mysqli_query($conn, $checkEmailQuery);
-  if (mysqli_num_rows($resultEmail) > 0) {
-    $_SESSION['errors'] = "Email already exists!";
-    header('Location: signup.php');
-    exit;
-  }
+  // // Check if email already exists
+  // $checkEmailQuery = "SELECT * FROM pending_employer WHERE email = '$email'";
+  // $resultEmail = mysqli_query($conn, $checkEmailQuery);
+  // if (mysqli_num_rows($resultEmail) > 0) {
+  //   $_SESSION['errors'] = "Email already exists!";
+  //   header('Location: signup.php');
+  //   exit;
+  // }
 
     // Check if email already exists
     $checkEmailQuery = "SELECT * FROM activated_employer WHERE email = '$email'";
@@ -145,11 +145,11 @@ if (isset($_POST['signup'])) {
 
         <form id="signupForm" action="signup.php" method="post">
             <div class="infinity-free">
-                <h1><img src="../assets/img/id-card.png" alt="Icon"><span class="primary"> CDM Internship</span></h1>
+            <a href="../students/signup.php" style="text-decoration: none;"><h1><img src="../assets/img/employer.png" alt="Icon"><span class="primary"> Employer</span></h1></a>
             </div>
 
-            <h2 class="centered">Sign Up for Internship</h2>
-
+            <h2 class="centered">Create an Account</h2>
+            <div class="section-divider-top"></div>
             <?php if(isset($_SESSION['errors'])): ?>
               <div class="alert alert-danger" role="alert">
                 <?php echo $_SESSION['errors']; ?>
@@ -184,7 +184,7 @@ if (isset($_POST['signup'])) {
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                 <label class="form-check-label" for="flexCheckDefault">
-                    I've read and agree to the <a href="#">terms of service.</a>.
+                    I've read and agree to the <a href="#" style="color: #75A47F;">terms of service.</a>.
                 </label>
             </div>
 

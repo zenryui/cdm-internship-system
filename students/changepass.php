@@ -82,6 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                         
                 <h2 class="centered">Create new password</h2>
+                <div class="section-divider-top"></div>
                 <!-- Alert container for errors -->
                 <div class="alert-container">
                     <div class="alert alert-danger alert-message" id="alertMessage"></div>
@@ -99,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="button">
                     <input type="button" value="Create new password" class="btn" onclick="submitForm()">
                 </div>
-                <p class="signup-label">Don't have account yet?</p><a href="signup.php" class="signup-link">Cancel</a>
+                <p class="signup-label">Don't have account yet?</p><a href="index.php" class="signup-link">Cancel</a>
             </form>
         </div>
     </div>

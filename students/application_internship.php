@@ -6,7 +6,7 @@ require_once("../connection/connection.php");
 if (!isset($_SESSION['user_data'])) {
     // Redirect the user to the login page
     header("Location: index.php");
-    exit; // Stop further execution
+    exit;
 }
 
 // Assuming user data is stored in the session
@@ -58,6 +58,7 @@ $applicationsStmt->close();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <div class="container mt-4">
@@ -67,7 +68,6 @@ $applicationsStmt->close();
             <input type="text" class="form-control" id="search" placeholder="Search by ID, duration, title, company, location">
         </div>
     </form>
-    <!-- <div id="no-results" class="alert alert-warning" style="display: none;">No Results</div> -->
     <table class="table table-bordered" id="internships-table">
         <thead>
             <tr>
@@ -82,7 +82,6 @@ $applicationsStmt->close();
                 <th>Action</th>
             </tr>
         </thead>
-        <!-- <div id="no-results" class="alert alert-warning" style="display: none;">No Results</div> -->
         <tbody id="internships-tbody">
             <?php while($row = $internshipsResult->fetch_assoc()): ?>
                 <tr>
@@ -95,17 +94,18 @@ $applicationsStmt->close();
                     <td><?php echo $row['name']; ?></td>
                     <td><?php echo $row['Location']; ?></td>
                     <td>
-                        <?php if (in_array($row['Internship_ID'], $appliedInternships) && $internshipStatus[$row['Internship_ID']] == 'Pending'): ?>
-                            <button class="btn btn-secondary" disabled>Applied</button>
-                        <?php else: ?>
-                            <button class="btn btn-info apply-btn" 
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#applyModal" 
-                                    data-id="<?php echo $row['Internship_ID']; ?>" 
-                                    data-title="<?php echo $row['Title']; ?>" 
-                                    data-company-id="<?php echo $row['Company_ID']; ?>" 
-                                    data-company-name="<?php echo $row['name']; ?>">Apply</button>
-                        <?php endif; ?>
+                    <?php if (in_array($row['Internship_ID'], $appliedInternships) && ($internshipStatus[$row['Internship_ID']] == 'Pending' || $internshipStatus[$row['Internship_ID']] == 'Approved')): ?>
+    <button class="btn btn-secondary" disabled>Applied</button>
+<?php else: ?>          
+    <button class="btn btn-info apply-btn" 
+            data-bs-toggle="modal" 
+            data-bs-target="#applyModal" 
+            data-id="<?php echo $row['Internship_ID']; ?>" 
+            data-title="<?php echo $row['Title']; ?>" 
+            data-company-id="<?php echo $row['Company_ID']; ?>" 
+            data-company-name="<?php echo $row['name']; ?>">Apply</button>
+<?php endif; ?>
+
                     </td>
                 </tr>
             <?php endwhile; ?>
@@ -114,8 +114,9 @@ $applicationsStmt->close();
     
     <div id="no-results" class="alert alert-warning" style="display: none;">No Results</div>
 
-    <h2>Application History</h2>
+
     <table class="table table-bordered">
+
         <thead>
             <tr>
                 <th>ID</th>
@@ -128,9 +129,9 @@ $applicationsStmt->close();
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="applications-tbody">
             <?php foreach($applicationsResult as $application): ?>
-                <tr>
+                <tr data-id="<?php echo $application['id']; ?>">
                     <td><?php echo $application['id']; ?></td>
                     <td><?php echo $application['internship_ID']; ?></td>
                     <td><?php echo $application['title']; ?></td>
@@ -160,7 +161,7 @@ $applicationsStmt->close();
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="applyForm" action="submit_application.php" method="post" enctype="multipart/form-data">
+                <form id="applyForm" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="student_name" class="form-label">Student Name</label>
                         <input type="text" class="form-control" id="student_name" name="student_name" value="<?php echo $student_name; ?>" readonly>
@@ -201,43 +202,107 @@ $applicationsStmt->close();
 </div>
 
 <script>
-$(document).ready(function() {
-    $('.apply-btn').on('click', function() {
+$(document).ready(function () {
+    $('.apply-btn').on('click', function () {
         var internshipID = $(this).data('id');
         var title = $(this).data('title');
         var companyID = $(this).data('company-id');
         var companyName = $(this).data('company-name');
-
+        
         $('#internship_ID').val(internshipID);
         $('#title').val(title);
         $('#company_ID').val(companyID);
         $('#company_name').val(companyName);
     });
 
-    $('.cancel-btn').on('click', function() {
-        var applicationID = $(this).data('id');
-        // Add AJAX call here to handle cancellation
+    $('#applyForm').on('submit', function (e) {
+        e.preventDefault();
+        
+        var formData = new FormData(this);
+        
+        $.ajax({
+            url: 'submit_application.php',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Application submitted successfully!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#applyModal').modal('hide');
+                        location.reload();
+                    }
+                });
+            },
+            error: function (response) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error submitting application. Please try again.'
+                });
+            }
+        });
     });
 
-    $('#search').on('input', function() {
-        var searchTerm = $(this).val().toLowerCase();
-        var hasResults = false;
+    $('.cancel-btn').on('click', function () {
+        var applicationID = $(this).data('id');
+        
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to cancel this application?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, cancel it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: 'cancel_application.php',
+                    type: 'POST',
+                    data: { id: applicationID },
+                    success: function (response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Cancelled',
+                            text: 'Application cancelled successfully!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+                    },
+                    error: function (response) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error cancelling application. Please try again.'
+                        });
+                    }
+                });
+            }
+        });
+    });
 
-        $('#internships-tbody tr').each(function() {
+    $("#search").on("input", function() {
+        var searchTerm = $(this).val().toLowerCase();
+        var noResults = true;
+        
+        $("#internships-tbody tr").each(function() {
             var rowText = $(this).text().toLowerCase();
-            if (rowText.includes(searchTerm)) {
-                $(this).show();
-                hasResults = true;
-            } else {
+            if (rowText.indexOf(searchTerm) === -1) {
                 $(this).hide();
+            } else {
+                $(this).show();
+                noResults = false;
             }
         });
 
-        if (hasResults) {
-            $('#no-results').hide();
-        } else {
-            $('#no-results').show();
-        }
+        $("#no-results").toggle(noResults);
     });
 });
 </script>

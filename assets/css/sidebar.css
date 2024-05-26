@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.sidebar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    padding-top: 20px;
+    transition: width 0.3s, margin-left 0.3s;
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.2);
+}
+.sidebar .brand {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #75A47F;
+    text-align: left;
+    padding-left: 20px;
+    margin-bottom: 1rem;
+}
+.sidebar .brand span {
+    display: inline;
+}
+
+.section-divider {
+    border-bottom: 2px solid #e9ecef;
+    margin: 20px 0;
+}
+
+.sidebar a {
+    padding: 15px 10px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #7d8da1;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+}
+.sidebar a:hover {
+    background-color: #f6f6f9;
+    border-left: 5px solid #75A47F;
+}
+.sidebar i {
+    margin-right: 10px;
+}
+.sidebar .toggle-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #75A47F;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.sidebar.collapsed {
+    width: 80px;
+}
+.sidebar.collapsed .toggle-btn {
+    right: -40px;
+}
+.sidebar.collapsed .brand span {
+    display: none;
+}
+.sidebar.collapsed .brand::after {
+    content: "CDM";
+}
+.sidebar.collapsed a {
+    justify-content: center;
+    padding: 15px 0;
+}
+.sidebar.collapsed i {
+    margin-right: 0;
+}
+.sidebar.collapsed a span {
+    display: none;
+}
+.content {
+    margin-left: 250px;
+    transition: margin-left 0.3s;
+}
+.content.collapsed {
+    margin-left: 80px;
+}
+
+.section-divider-top {
+    border-bottom: 2px solid #e9ecef;
+    margin: 50px 0;
+}

@@ -82,6 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                         
                 <h2 class="centered">Create new password</h2>
+                <div class="section-divider-top"></div>
                 <!-- Alert container for errors -->
                 <div class="alert-container">
                     <div class="alert alert-danger alert-message" id="alertMessage"></div>

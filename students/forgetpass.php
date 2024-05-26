@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p class="text-center" id="msg"></p>
 
             <div class="box">
-                <p class="text-muted" style="text-align: center;">Our system will send a six-digit code as your token to the email provided below ⬇️.<span class="email-domain" style="color: #7380ec;"> Read only</span></p>
+                <p class="text-muted" style="text-align: center;">Our system will send a six-digit code as your token to the email provided below ⬇️.<span class="email-domain" style="color: #75A47F;"> Read only</span></p>
                 <input class="form-control" type="email" name="email" value="<?php echo $_GET['email'] ?? ''; ?>" readonly style="text-align: center;">
             </div>
 

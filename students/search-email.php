@@ -31,10 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ?>
         <div class="result-container">
             <div class="box">
-                <div class="alert alert-success">User found: <?php echo $name; ?></div>
+                <div class="alert alert-success">Student found: <?php echo $name; ?></div>
             </div>
             <div class="send-button">
-                <a href="#" class='btn btn-primary' id="confirmButton">This is me</a>
+                <a href="#" class='btn btn-primary' id="confirmButton">Select</a>
             </div>
         </div>
         <script>

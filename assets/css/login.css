@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root{
-    --color-primary: #7380ec;
+    --color-primary: #75A47F;
     --color-white: #fff;
     --color-info: #7d8da1;
     --color-light: rgba(132, 139, 200, 0.18);
@@ -64,17 +64,18 @@ header{position: relative;}
     border-radius: var(--border-radius-2);
     padding: 3.5rem;
     background-color: var(--color-white);
-    border: solid 2px var(--color-light);
+    /* border: solid 2px var(--color-light); */
     width: 95%;
     max-width: 32rem;
     max-height: 30rem;
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.2);
 }
 
 
 
 .infinity-free {
     position: relative;
-    bottom: 3rem;
+    bottom: 3.8rem;
     left: 50%;
     transform: translateX(-50%);
     background-color: none;
@@ -90,7 +91,7 @@ header{position: relative;}
 }
 
 
-.login-container form:hover{box-shadow: none;}
+
 .login-container form .box input[type=password],
 .login-container form .box input[type=email] {
     border: none;
@@ -118,6 +119,7 @@ header{position: relative;}
 .centered {
     text-align: center;
     padding-bottom: 2rem;
+    color: #75A47F;
 }
 
 
@@ -175,7 +177,7 @@ header{position: relative;}
 
 .goto-signup-label {
     position: relative;
-    top: 3rem;
+    top: 3.7rem;
     left: 50%;
     padding-right: 4.2rem;
     transform: translateX(-50%); /* Center it horizontally */
@@ -183,11 +185,12 @@ header{position: relative;}
 
 .goto-signup-link {
     position: relative;
-    top: .7rem; /* Adjust the distance from the bottom as needed */
+    top: 1.4rem; /* Adjust the distance from the bottom as needed */
     left: 50%; /* Center it horizontally */
     padding-left: 11.5rem;
     transform: translateX(-50%); /* Center it horizontally */
     text-decoration: none;
+    color:#75A47F;
 }
 
 
@@ -229,6 +232,10 @@ header{position: relative;}
     display: block;
   }
   
+  .section-divider-top {
+    border-bottom: 2px solid #e9ecef;
+    margin: 5px 0;
+}
 
 
 

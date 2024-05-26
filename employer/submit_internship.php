@@ -8,23 +8,57 @@ if (!isset($_SESSION['employer_data'])) {
     exit();
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $title = $conn->real_escape_string($_POST['title']);
-    $description = $conn->real_escape_string($_POST['description']);
-    $requirements = $conn->real_escape_string($_POST['requirements']);
-    $duration = $conn->real_escape_string($_POST['duration']);
+// Handle the delete request
+if (isset($_POST['delete_internship_id'])) {
+    $internship_id = $_POST['delete_internship_id'];
     
-    // Get the company_id from the session data
+    $sql = "DELETE FROM internship WHERE Internship_ID = ?";
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) {
+        die("Error preparing statement: " . $conn->error);
+    }
+    $stmt->bind_param("i", $internship_id);
+    $stmt->execute();
+    if ($stmt === false) {
+        die("Error executing statement: " . $stmt->error);
+    }
+    echo "Internship deleted successfully";
+    exit();
+}
+
+// Handle the create and update requests
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['delete_internship_id'])) {
+    $title = $_POST['title'];
+    $description = $_POST['description'];
+    $requirements = $_POST['requirements'];
+    $duration = $_POST['duration'];
     $company_id = $_SESSION['employer_data']['Company_ID'];
 
-    $sql = "INSERT INTO internship (Title, Description, Requirements, Duration, Company_ID) VALUES ('$title', '$description', '$requirements', '$duration', '$company_id')";
-    
-    if ($conn->query($sql) === TRUE) {
-        echo "New internship created successfully";
+    if (isset($_POST['internship_id']) && !empty($_POST['internship_id'])) {
+        $internship_id = $_POST['internship_id'];
+
+        // Update internship
+        $sql = "UPDATE internship SET Title = ?, Description = ?, Requirements = ?, Duration = ? WHERE Internship_ID = ?";
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) {
+            die("Error preparing statement: " . $conn->error);
+        }
+        $stmt->bind_param("ssssi", $title, $description, $requirements, $duration, $internship_id);
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        // Create new internship
+        $sql = "INSERT INTO internship (Title, Description, Requirements, Duration, Company_ID, Status) VALUES (?, ?, ?, ?, ?, 'Pending')";
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) {
+            die("Error preparing statement: " . $conn->error);
+        }
+        $stmt->bind_param("ssssi", $title, $description, $requirements, $duration, $company_id);
     }
-    
+
+    $stmt->execute();
+    if ($stmt === false) {
+        die("Error executing statement: " . $stmt->error);
+    }
+
     header("Location: post_internship.php");
     exit();
 }

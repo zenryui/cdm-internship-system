@@ -77,9 +77,10 @@ if (isset($_POST['login'])) {
     <form id="loginForm" method="post">
         <!-- Form content -->
         <div class="infinity-free">
-            <h1><img src="../assets/img/id-card.png" alt="Icon"><span class="primary"> CDM Internship</span></h1>
+        <a href="../employer/index.php" style="text-decoration: none;"><h1><img src="../assets/img/student.png" alt="Icon"><span class="primary"> Student</span></h1></a>
         </div>
         <h2 class="centered">Login to your account</h2>
+        <div class="section-divider-top"></div>
         <div class="box">
             <p class="text-muted">Email Address</p>
             <input class="form-control" type="email" required name="email" id="email" placeholder="ferg@gmail.com">

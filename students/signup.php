@@ -149,11 +149,11 @@ if (isset($_POST['signup'])) {
 
         <form id="signupForm" action="signup.php" method="post">
             <div class="infinity-free">
-                <h1><img src="../assets/img/id-card.png" alt="Icon"><span class="primary"> CDM Internship</span></h1>
+            <a href="../employer/signup.php" style="text-decoration: none;"><h1><img src="../assets/img/student.png" alt="Icon"><span class="primary"> Student</span></h1></a>
             </div>
 
-            <h2 class="centered">Sign Up for Internship</h2>
-
+            <h2 class="centered">Create an Account</h2>
+              <div class="section-divider-top"></div>
             <?php if(isset($_SESSION['errors'])): ?>
               <div class="alert alert-danger" role="alert">
                 <?php echo $_SESSION['errors']; ?>
@@ -165,8 +165,8 @@ if (isset($_POST['signup'])) {
             </div>
 
             <div class="box">
-                <p class="text-muted">Username</p>
-                <input class="form-control" type="text" name="name" id="username" placeholder="Your username" required minlength="6" maxlength="20">
+                <p class="text-muted">Full Name</p>
+                <input class="form-control" type="text" name="name" id="username" placeholder="Your full name" required>
             </div>
 
             <div class="box">
@@ -188,7 +188,7 @@ if (isset($_POST['signup'])) {
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                 <label class="form-check-label" for="flexCheckDefault">
-                    I've read and agree to the <a href="#">terms of service.</a>.
+                    I've read and agree to the <a href="#" style="color:#75A47F;">terms of service.</a>.
                 </label>
             </div>
 

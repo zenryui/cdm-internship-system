@@ -74,9 +74,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     <form id="loginForm" method="post">
         <!-- Form content -->
         <div class="infinity-free">
-            <h1><img src="../assets/img/id-card.png" alt="Icon"><span class="primary"> CDM Internship</span></h1>
+            <a href="../students/index.php" style="text-decoration: none;"><h1><img src="../assets/img/employer.png" alt="Icon"><span class="primary"> Employer</span></h1></a>
         </div>
         <h2 class="centered">Login to your account</h2>
+        <div class="section-divider-top"></div>
         <div class="box">
             <p class="text-muted">Email Address</p>
             <input class="form-control" type="email" required name="email" id="email" placeholder="ferg@gmail.com">

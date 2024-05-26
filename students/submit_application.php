@@ -1,44 +1,47 @@
 <?php
-require_once("../connection/connection.php");
 session_start();
+require_once("../connection/connection.php");
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $student_name = $_POST['student_name'];
-    $student_email = $_POST['student_email'];
-    $student_course = $_POST['student_course'];
-    $internship_ID = $_POST['internship_ID'];
-    $title = $_POST['title'];
-    $company_ID = $_POST['company_ID'];
-
-    // Fetch the company name using a JOIN query
-    $company_name_query = $conn->prepare("SELECT e.name FROM internship i JOIN activated_employer e ON i.Company_ID = e.Company_ID WHERE i.Internship_ID = ?");
-    $company_name_query->bind_param("i", $internship_ID);
-    $company_name_query->execute();
-    $company_name_query->bind_result($company_name);
-    $company_name_query->fetch();
-    $company_name_query->close();
-
-    // Ensure the uploads directory exists
-    $upload_dir = 'uploads/';
-    if (!is_dir($upload_dir)) {
-        mkdir($upload_dir, 0755, true);
-    }
-
-    // Handle file upload
-    $resume_path = $upload_dir . basename($_FILES['resume']['name']);
-    if (move_uploaded_file($_FILES['resume']['tmp_name'], $resume_path)) {
-        // Insert application data into the database
-        $stmt = $conn->prepare("INSERT INTO application_internship (student_name, student_email, student_course, internship_ID, title, company_ID, company_name, resume_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssissss", $student_name, $student_email, $student_course, $internship_ID, $title, $company_ID, $company_name, $resume_path);
-
-        if ($stmt->execute()) {
-            echo "Application submitted successfully.";
-        } else {
-            echo "Error submitting application.";
-        }
-        $stmt->close();
-    } else {
-        echo "Error uploading resume.";
-    }
+// Check if the user is not logged in
+if (!isset($_SESSION['user_data'])) {
+    echo "error: User not logged in";
+    exit;
 }
+
+// Assuming user data is stored in the session
+$user_data = $_SESSION['user_data']; 
+$student_email = $user_data['email']; // Replace with actual session variable for user email
+
+// Get POST data
+$internshipID = $_POST['internshipID'];
+$internshipTitle = $_POST['internshipTitle'];
+$companyID = $_POST['companyID'];
+$companyName = $_POST['companyName'];
+$resumePath = ""; // Initialize resume path
+
+// Handle file upload
+if (isset($_FILES['resumeFile']) && $_FILES['resumeFile']['error'] == 0) {
+    $resumePath = '../students/uploads/' . basename($_FILES['resumeFile']['name']);
+    if (!move_uploaded_file($_FILES['resumeFile']['tmp_name'], $resumePath)) {
+        echo "error: Failed to upload resume";
+        exit;
+    }
+} else {
+    echo "error: No resume uploaded or error during upload";
+    exit;
+}
+
+// Insert application into the database
+$insertQuery = "INSERT INTO application_internship (internship_ID, title, company_ID, company_name, student_email, resume_path, status) VALUES (?, ?, ?, ?, ?, ?, 'Pending')";
+$stmt = $conn->prepare($insertQuery);
+$stmt->bind_param("ississ", $internshipID, $internshipTitle, $companyID, $companyName, $student_email, $resumePath);
+
+if ($stmt->execute()) {
+    echo "success";
+} else {
+    echo "error: Failed to insert application";
+}
+
+$stmt->close();
+$conn->close();
 ?>

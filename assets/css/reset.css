@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root{
-    --color-primary: #7380ec;
+    --color-primary: #75A47F;
     --color-white: #fff;
     --color-info: #7d8da1;
     --color-light: rgba(132, 139, 200, 0.18);
@@ -61,17 +61,18 @@ header{position: relative;}
     border-radius: var(--border-radius-2);
     padding: 3.5rem;
     background-color: var(--color-white);
-    border: solid 2px var(--color-light);
+    /* border: solid 2px var(--color-light); */
     width: 95%;
     max-width: 27rem;
     max-height: 20rem;
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.2);
 }
 
 
 
 .infinity-free {
     position: relative;
-    bottom: 2.3rem;
+    bottom: 3.7rem;
     left: 50%;
     transform: translateX(-50%);
     background-color: none;
@@ -103,6 +104,7 @@ header{position: relative;}
 .centered {
     text-align: center;
     padding-bottom: -6rem;
+    color: #75A47F;
 }
 
 .reset-container form h2+p{margin: .4rem 0 1.2rem 0;}
@@ -151,7 +153,7 @@ header{position: relative;}
 
 .signup-link {
     position: relative;
-    top: .0                           rem; /* Adjust the distance from the bottom as needed */
+    top: 1.3rem; /* Adjust the distance from the bottom as needed */
     left: 50%; /* Center it horizontally */
     padding-right: 8.2rem;
     transform: translateX(-50%); /* Center it horizontally */

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2024 at 09:16 AM
+-- Generation Time: May 23, 2024 at 12:01 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,7 +46,8 @@ CREATE TABLE `activated_employer` (
 INSERT INTO `activated_employer` (`Company_ID`, `name`, `email`, `password`, `code`, `active`, `access`, `Contact_No`, `Location`) VALUES
 (1, 'orpilla', 'john.abanil.recover@gmail.com', '$2y$10$v8JHJlphFMlGONbtJFhEeupyZnZBGiZsOfR/IY89i35GXa0crUMJG', '$2y$10$Kqx7Uhl.8DCnEJGEh0dUQuVISs9NP.rjO94BK29Luv51EqoUVhrZW', '1', 'employer', '', ''),
 (2, 'sfsfdsfsdfsf', 'programmerferg@gmail.com', '$2y$10$WSl6nWb6H05QhsuKOA6tNuhwAHzdwVfUhE7rr8463CMik/LW6I/kO', '$2y$10$0IRExeqSZSYLLSTzlfh.lueLS30Gwgj9YcjuigwMiPnLSj5vjocZS', '1', 'employer', '', ''),
-(3, 'iceicebaby', 'gokieshanvy@gmail.com', '$2y$10$ycZlUmdfnQNG5DKYaoVdi.AP53rpQv4tq3z1hYa7peHbeKX9xqV7a', '$2y$10$C.FDkTlfEqsoSs1WFx941ueZ5afzAV9TN.LahONGd4JCVaxg7EIJ6', '1', 'employer', '', '');
+(3, 'iceicebaby', 'gokieshanvy@gmail.com', '$2y$10$ycZlUmdfnQNG5DKYaoVdi.AP53rpQv4tq3z1hYa7peHbeKX9xqV7a', '$2y$10$C.FDkTlfEqsoSs1WFx941ueZ5afzAV9TN.LahONGd4JCVaxg7EIJ6', '1', 'employer', '', ''),
+(4, 'JQuery', 'skidongskidong@gmail.com', '$2y$10$/qJrr4gF3nWgep1Q.rJUVOUbfbmZJpMS8mFqZ98xzu7E4QDtVCc3K', '$2y$10$uaxNF2aEJvr5EMfQAlOZKehYgp64BlaGkfOphx.aoy0gxbGa.xMn6', '1', 'employer', '2474', 'Bahay');
 
 -- --------------------------------------------------------
 
@@ -78,7 +79,8 @@ INSERT INTO `activated_student` (`id`, `name`, `email`, `password`, `code`, `act
 (1, 'Pogi ako', 'guda.johnmichael.abanil@gmail.com', '$2y$10$FM8AbrY385Dt9YhleojZo.Vq.tML7SbaAKmDZszRRXL4.AyWdo2N.', '$2y$10$gshnzkpTKS/RNUso4B9DA.pTt5VMDv3HMmG8gXxrGRjHWDiW9td9W', '1', 'student', 'Female', 'Bahay namen', 'BS Computer Engineering', '22-24745', '2000-06-07', '9322323232332'),
 (2, 'ryandingle', 'gokieshanvy@gmail.com', '$2y$10$R2HEe.Px5I53YKNtHXyeGugGF993XSG7cYg/y60j80kOE0gTeopRi', '$2y$10$71Fxoe8E0e5nOm4CId4hEuIpd8nymXzb5kA6B7LP.kh98GU2RaZLO', '1', 'student', NULL, NULL, NULL, NULL, NULL, NULL),
 (3, 'tangina', 'fergdoflamingo@gmail.com', '$2y$10$8A2e1M1557Iy7YjPzzoNIeLvyYN8Hfqqcoeg7wHBwquNDO/j3LPXa', '$2y$10$7v1vfMk14DQM3FRip31gOeZnB8Pw.97cglj7vuCSNNnApbPCr.SUO', '1', 'student', 'Female', 'yep', 'BS Computer Engineering', '2212345', '2024-05-02', '09691588952'),
-(4, '', 'john.abanil.recover@gmail.com', '$2y$10$fXASU6loo0BmueTjL8mrO.boogk/7eFVTLCDEMM4t0mg8qe8LsZ5a', '$2y$10$3SQuXECTL3WLkedqSYcX4erzBPpJELy5/pVO0z2N0EP8kr5N2lPI6', '1', 'student', '', '', 'BS Information Technology', '', '0000-00-00', '');
+(4, 'Tanggol', 'john.abanil.recover@gmail.com', '$2y$10$wdPC9nyabTEfEt9kcAw7wuyHFKlYoESyJKiTaoIaqJXwCnc.nT1.S', '$2y$10$JhxPbfOvmk1K4JWfLywZ8el6ovx1n9YW6qcCOkjGLfdVlEXJ.QFB2', '1', 'student', 'Male', '', 'BS Information Technology', '22-00406', '0000-00-00', '09691588952'),
+(5, 'skididong', 'skidongskidong@gmail.com', '$2y$10$4XR7RyI4loyVLBSUvHKsMueSqSep9DxF1MIfrbdZbDsrqkHjghARC', '$2y$10$htUhg1veBo44DsIYnyFtROpPbJl3LJUGvmMcTHrLHx5DRlbBn/L3S', '1', 'student', '', '', 'BS Computer Engineering', '', '0000-00-00', '');
 
 -- --------------------------------------------------------
 
@@ -96,18 +98,26 @@ CREATE TABLE `application_internship` (
   `company_ID` int(11) NOT NULL,
   `company_name` varchar(255) NOT NULL,
   `status` varchar(50) NOT NULL DEFAULT 'Pending',
-  `resume_path` varchar(255) NOT NULL
+  `resume_path` varchar(255) NOT NULL,
+  `application_date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `application_internship`
 --
 
-INSERT INTO `application_internship` (`id`, `student_name`, `student_email`, `student_course`, `internship_ID`, `title`, `company_ID`, `company_name`, `status`, `resume_path`) VALUES
-(1, 'Pogi ako', 'guda.johnmichael.abanil@gmail.com', 'BS Computer Engineering', 14, 'maron', 3, '0', 'Pending', 'uploads/pogiako.pdf'),
-(2, 'Pogi ako', 'guda.johnmichael.abanil@gmail.com', 'BS Computer Engineering', 14, 'maron', 3, '0', 'Pending', 'uploads/pogiako.pdf'),
-(3, 'Pogi ako', 'guda.johnmichael.abanil@gmail.com', 'BS Computer Engineering', 14, 'maron', 3, 'iceicebaby', 'Pending', 'uploads/error_notfix.sql'),
-(4, 'Pogi ako', 'guda.johnmichael.abanil@gmail.com', 'BS Computer Engineering', 1, 'fgdgdfgdg', 1, 'orpilla', 'Pending', 'uploads/pogiako.pdf');
+INSERT INTO `application_internship` (`id`, `student_name`, `student_email`, `student_course`, `internship_ID`, `title`, `company_ID`, `company_name`, `status`, `resume_path`, `application_date`) VALUES
+(1, 'Pogi ako', 'guda.johnmichael.abanil@gmail.com', 'BS Computer Engineering', 14, 'maron', 3, '0', 'Pending', 'uploads/pogiako.pdf', '2024-05-23 05:59:32'),
+(2, 'Pogi ako', 'guda.johnmichael.abanil@gmail.com', 'BS Computer Engineering', 14, 'maron', 3, '0', 'Pending', 'uploads/pogiako.pdf', '2024-05-23 05:59:32'),
+(3, 'Pogi ako', 'guda.johnmichael.abanil@gmail.com', 'BS Computer Engineering', 14, 'maron', 3, 'iceicebaby', 'Pending', 'uploads/error_notfix.sql', '2024-05-23 05:59:32'),
+(4, 'Pogi ako', 'guda.johnmichael.abanil@gmail.com', 'BS Computer Engineering', 1, 'fgdgdfgdg', 1, 'orpilla', 'Approved', 'uploads/pogiako.pdf', '2024-05-23 05:59:32'),
+(5, 'Pogi ako', 'guda.johnmichael.abanil@gmail.com', 'BS Computer Engineering', 15, 'Construction', 3, 'iceicebaby', 'Pending', 'uploads/cdm-internship-database.sql', '2024-05-23 05:59:32'),
+(6, 'Pogi ako', 'guda.johnmichael.abanil@gmail.com', 'BS Computer Engineering', 16, 'Ryan', 4, 'skididong', 'Approved', 'uploads/cdm-internship-database.sql', '2024-05-23 05:59:32'),
+(7, 'Pogi ako', 'guda.johnmichael.abanil@gmail.com', 'BS Computer Engineering', 17, 'Hinarot', 4, 'skididong', 'Pending', 'uploads/cdm-internship-database.sql', '2024-05-23 05:59:32'),
+(8, 'Tanggol', 'john.abanil.recover@gmail.com', 'BS Information Technology', 17, 'Hinarot', 4, 'skididong', 'Cancelled', 'uploads/cdm-internship-database.sql', '2024-05-23 05:59:32'),
+(11, 'Tanggol', 'john.abanil.recover@gmail.com', 'BS Information Technology', 16, 'Ryan', 4, 'skididong', 'Approved', 'uploads/cdm-internship-database.sql', '2024-05-23 05:59:32'),
+(12, 'Tanggol', 'john.abanil.recover@gmail.com', 'BS Information Technology', 17, 'Hinarot', 4, 'JQuery', 'Pending', 'uploads/snip.PNG', '2024-05-23 05:59:32'),
+(13, 'Tanggol', 'john.abanil.recover@gmail.com', 'BS Information Technology', 16, 'Ryan', 4, 'JQuery', 'Pending', 'uploads/resume.pdf', '2024-05-23 05:59:32');
 
 -- --------------------------------------------------------
 
@@ -121,20 +131,26 @@ CREATE TABLE `internship` (
   `Description` text DEFAULT NULL,
   `Requirements` text DEFAULT NULL,
   `Duration` varchar(50) DEFAULT NULL,
-  `Company_ID` int(11) NOT NULL
+  `Company_ID` int(11) NOT NULL,
+  `Status` varchar(50) NOT NULL DEFAULT 'pending',
+  `posted_date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `internship`
 --
 
-INSERT INTO `internship` (`Internship_ID`, `Title`, `Description`, `Requirements`, `Duration`, `Company_ID`) VALUES
-(1, 'fgdgdfgdg', 'gdgdgdfg', 'gdfgdg', 'dgfgdg', 1),
-(4, 'fssfsd', 'sdfsfsdfsdf', 'sfsdfsdf', 'fsfsdfsd', 1),
-(10, 'GFDGDGDFGD', 'GDGDGDG', 'DFGDFGDG', 'DFGFDFG', 1),
-(11, 'GHFGHFFGH', 'FFHFHFGH', 'FGHFFGFGHFG', 'FGHFGHFGH', 2),
-(13, 'Loid', 'Anya', 'Yor', 'Forger', 1),
-(14, 'maron', 'nani', 'duday', 'trudis', 3);
+INSERT INTO `internship` (`Internship_ID`, `Title`, `Description`, `Requirements`, `Duration`, `Company_ID`, `Status`, `posted_date`) VALUES
+(1, 'fgdgdfgdg', 'gdgdgdfg', 'gdfgdg', 'dgfgdg', 1, 'pending', '2024-05-23 05:55:07'),
+(4, 'fssfsd', 'sdfsfsdfsdf', 'sfsdfsdf', 'fsfsdfsd', 1, 'pending', '2024-05-23 05:55:07'),
+(10, 'GFDGDGDFGD', 'GDGDGDG', 'DFGDFGDG', 'DFGFDFG', 1, 'pending', '2024-05-23 05:55:07'),
+(11, 'GHFGHFFGH', 'FFHFHFGH', 'FGHFFGFGHFG', 'FGHFGHFGH', 2, 'pending', '2024-05-23 05:55:07'),
+(13, 'Loid', 'Anya', 'Yor', 'Forger', 1, 'pending', '2024-05-23 05:55:07'),
+(14, 'maron', 'nani', 'duday', 'trudis', 3, 'pending', '2024-05-23 05:55:07'),
+(15, 'Construction', 'Tagabuhos', 'Taga walis', 'Taga banlaw', 3, 'pending', '2024-05-23 05:55:07'),
+(16, 'Front-End Developer', 'Tailwind and SASS CSS', 'HTML, JS, CSS', '80 Hours', 4, 'pending', '2024-05-23 05:55:07'),
+(18, 'Cherry', 'Dublin', 'Albert', 'Goblin', 4, 'Pending', '2024-05-23 05:55:07'),
+(19, 'Backend Developer', 'Maintenance', 'Knowledge about Programming Languages\r\nPhp, Next.js', '90', 4, 'Pending', '2024-05-23 05:55:07');
 
 -- --------------------------------------------------------
 
@@ -177,15 +193,6 @@ CREATE TABLE `pending_student` (
   `access` varchar(255) NOT NULL DEFAULT 'student'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `pending_student`
---
-
-INSERT INTO `pending_student` (`id`, `name`, `email`, `password`, `active`, `code`, `access`) VALUES
-(1, 'rtxrtx', 'iceferg28@gmail.com', '$2y$10$lbvhi8cFRM8mCQXtUHc1zez8.qkCfcmMN9PcNB1saiGJJj143RpU6', '0', '$2y$10$/j6eJYFo0ehQFVHWjqBhB.Nfwur5mMd8L.VVXNRBiX6IpERPANHTq', 'student'),
-(2, 'rererere', 'skidongskidong@gmail.com', '$2y$10$MD0UWMuSG/kFC2oq3i5BQOJdfhG3GPyXYCZOh9eSxOo9Fc.Xq2MEi', '0', '$2y$10$cVFQ6mAer5oBRZMn0/nG8OxT.F.pbxZ0hMJ1e4v9qb2eXN8YRIKkC', 'student'),
-(3, 'orpilla', 'programmerferg@gmail.com', '$2y$10$oHSlwpHNlSfFijH0xPsFtuPHW44K3cekQZTbv88mYBgw7f5EKla7e', '0', '$2y$10$rcnLKHwhR72w137fQ1TrteLPgKDX4pEKF63RPD0yh8ghghh6V0c36', 'student');
-
 -- --------------------------------------------------------
 
 --
@@ -215,7 +222,8 @@ CREATE TABLE `table_resume` (
 INSERT INTO `table_resume` (`user_id`, `objective`, `birthplace`, `citizenship`, `religion`, `languages_spoken`, `civil_status`, `primary_education`, `secondary_education`, `tertiary_education`, `primary_year`, `secondary_year`, `tertiary_year`) VALUES
 (1, 'wala hahaha', 'QC', 'Filipino', 'Roman Catholic', 'pakyu', 'Married', 'KVES', 'KVNHS', 'CDM', '2002', '2010', '2024'),
 (3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, '', '', '', '', '', 'Single', '', '', '', '', '', '');
+(4, '', 'Quezon Memorial Hospital', 'Filipino', 'Roman Catholic', '', 'Single', 'Kasiglahan Village Elementary School', 'Kasiglahan Village Seinor High School', 'Colegio De Montalban', '2008 - 2015', '2020 - 2022', '2022 - on going'),
+(5, '', '', '', 'Roman Catholic', '', 'Single', '', '', '', '', '', '');
 
 --
 -- Indexes for dumped tables
@@ -272,37 +280,37 @@ ALTER TABLE `table_resume`
 -- AUTO_INCREMENT for table `activated_employer`
 --
 ALTER TABLE `activated_employer`
-  MODIFY `Company_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Company_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `activated_student`
 --
 ALTER TABLE `activated_student`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `application_internship`
 --
 ALTER TABLE `application_internship`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `internship`
 --
 ALTER TABLE `internship`
-  MODIFY `Internship_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `Internship_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `pending_employer`
 --
 ALTER TABLE `pending_employer`
-  MODIFY `Company_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Company_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `pending_student`
 --
 ALTER TABLE `pending_student`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables

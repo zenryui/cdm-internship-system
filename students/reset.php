@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="submit" value="Continue" class="btn" name="submit" onclick="showSuccessAlert()">
                 </div>
                 <p class="signup-label">Don't have an account yet?</p>
-                <a href="sign-in.php" class="signup-link">Cancel</a>
+                <a href="index.php" class="signup-link">Cancel</a>
             </form>
         </div>
     </div>

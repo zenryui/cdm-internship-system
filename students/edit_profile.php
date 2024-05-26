@@ -142,6 +142,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Edit Profile</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/sidebar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <style>
 
@@ -232,9 +234,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         .centered textarea {
             text-align: center;
         }
-    </style>
+            </style>
 </head>
 <body>
+<div class="sidebar">
+    <div class="brand"><span>CDM Internship</span></div>
+    <div class="toggle-btn" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </div>
+    <div class="section-divider"></div>
+    <a href="log.php"><i class="fas fa-columns"></i><span>Dashboard</span></a>
+    <a href="profile.php"><i class="fas fa-user"></i><span>Profile Management</span></a>
+    <a href="application_v2.php"><i class="fas fa-briefcase"></i><span>Internship Application</span></a>
+    <a href="notification.php"><i class="fas fa-bell"></i><span>Notifications</span></a>
+    <a href="pdf.php"><i class="fas fa-file-pdf"></i><span>Generate PDF</span></a>
+    <a href="change_pass.php"><i class="fas fa-lock"></i><span>Change Password</span></a>
+    <a href="logout.php" id="logout-btn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+</div>
 <div class="container">
         <h2 class="text-center">Profile & Resume</h2>
         <div class="section-divider"></div>
@@ -251,11 +267,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-row">
                 <div class="form-group-inline">
                 <label for="name">Full Name</label>
-                    <input type="text" class="form-control" id="name" name="name"placeholder=" Juan D. Cruz" value="<?php echo $user_data['name']; ?>">
+                    <input type="text" class="form-control" id="name" name="name" placeholder=" ex: Juan D. Cruz" value="<?php echo $user_data['name']; ?>">
                 </div>
                 <div class="form-group-inline">
                 <label for="studentID">Student ID</label>
-                    <input type="text" class="form-control" id="studentID" name="studentID" placeholder="22-00000" value="<?php echo $user_data['studentID']; ?>">
+                    <input type="text" class="form-control" id="studentID" name="studentID" placeholder=" ex: 22-00000" value="<?php echo $user_data['studentID']; ?>">
                 </div>
                 <div class="form-group-inline">
                     <label class="text-center" for="sex">Sex</label>
@@ -268,7 +284,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <!-- Religion -->
                 <div class="form-group-inline">
                     <label for="religion">Religion</label>
-                    <input type="text" class="form-control" id="religion" name="religion" placeholder="Roman Catholic" value="<?php echo $user_data['religion']; ?>">
+                    <input type="text" class="form-control" id="religion" name="religion" placeholder=" ex: Roman Catholic" value="<?php echo $user_data['religion']; ?>">
                 </div>
                 <div class="form-group-inline">
                     <label for="birthday">Birthday</label>
@@ -277,19 +293,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <!-- Birthplace -->
                 <div class="form-group-inline">
                     <label for="birthplace">Birthplace</label>
-                    <input type="text" class="form-control" id="birthplace" name="birthplace" placeholder="City or Province" value="<?php echo $user_data['birthplace']; ?>">
+                    <input type="text" class="form-control" id="birthplace" name="birthplace" placeholder=" ex: Quezon Memorial Hospital" value="<?php echo $user_data['birthplace']; ?>">
                 </div>
             </div>
             <!-- Citizenship -->
             <div class="form-row">
                 <div class="form-group-inline">
                     <label for="citizenship">Citizenship</label>
-                    <input type="text" class="form-control" id="citizenship" name="citizenship" placeholder="Filipino" value="<?php echo $user_data['citizenship']; ?>">
+                    <input type="text" class="form-control" id="citizenship" name="citizenship" placeholder="ex: Filipino" value="<?php echo $user_data['citizenship']; ?>">
                 </div>
                 <!-- Civil Status -->
                 <div class="form-group-inline">
                     <label for="civil_status">Civil Status</label>
                     <select class="form-control portfolio-textarea" id="civil_status" name="civil_status" style="margin-top: 0px;">
+                        <option value="">--Select--</option>
                         <option value="Single" <?php if($user_data['civil_status'] == 'Single') echo 'selected'; ?>>Single</option>
                         <option value="Married" <?php if($user_data['civil_status'] == 'Married') echo 'selected'; ?>>Married</option>
                         <option value="Divorced" <?php if($user_data['civil_status'] == 'Divorced') echo 'selected'; ?>>Divorced</option>
@@ -305,7 +322,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <!-- Address label and input box -->
                 <div class="form-group-inline centered">
             <label class="text-center" for="address">Address</label>
-        <textarea class="form-control portfolio-textarea" id="address" name="address" rows="3"><?php echo htmlspecialchars($user_data['address']); ?></textarea>
+        <textarea class="form-control portfolio-textarea" id="address" name="address" rows="3" placeholder=" ex: Kasiglahan Village Barangay San Jose" ><?php echo htmlspecialchars($user_data['address']); ?></textarea>
     </div>
     <div class="section-divider"></div>
         <h3>Contact Information</h3>
@@ -313,11 +330,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-row">
                 <div class="form-group-inline">
                     <label for="contact_no">Phone Number</label>
-                    <input type="text" class="form-control" id="contact_no" name="contact_no" placeholder="Mobile Number" value="<?php echo $user_data['contact_no']; ?>">
+                    <input type="text" class="form-control" id="contact_no" name="contact_no" placeholder=" ex: 09123456789" value="<?php echo $user_data['contact_no']; ?>">
                 </div>
                 <div class="form-group-inline">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email"  placeholder="Youremail@gmail.com"value="<?php echo $user_data['email']; ?>" readonly>
+                    <input type="email" class="form-control" id="email" name="email"  placeholder="Youremail@gmail.com" value="<?php echo $user_data['email']; ?>" readonly>
                 </div>
             </div>
         <div class="section-divider"></div>
@@ -325,6 +342,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="section-divider"></div>
         <div class="form-group-inline centered">
                     <label class="text-center" for="course">Course</label>
+                    <option value="">--Select--</option>
                     <select class="form-control portfolio-textarea" id="course" name="course">
                         <option value="BS Computer Engineering" <?php if($user_data['course'] == 'BS Computer Engineering') echo 'selected'; ?>>BS Computer Engineering</option>
                         <option value="BS Information Technology" <?php if($user_data['course'] == 'BS Information Technology') echo 'selected'; ?>>BS Information Technology</option>
@@ -335,7 +353,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <!-- START -->
             <div class="form-group-inline">
                     <label for="primary_education">Primary Education</label>
-                    <input type="text" class="form-control" id="primary_education" name="primary_education"placeholder="Elementary" value="<?php echo $user_data['primary_education']; ?>">
+                    <input type="text" class="form-control" id="primary_education" name="primary_education"placeholder="Elementary School" value="<?php echo $user_data['primary_education']; ?>">
                 </div>
                 <div class="form-group-inline">
                     <label for="primary_year">Year</label>
@@ -369,16 +387,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-row">
             <div class="form-group-inline centered">
             <label for="objective">Objective</label>
-            <textarea class="form-control portfolio-textarea" id="objective" name="objective" rows="3" placeholder="Example: To develop my career in a reputable company with integrity and with an opportunity for personal and professional development." style="font-size: 12px;"><?php echo $user_data['objective']; ?></textarea>
+            <textarea class="form-control portfolio-textarea" id="objective" name="objective" rows="3" placeholder=" ex: To develop my career in a reputable company." style="font-size: 12px;"><?php echo $user_data['objective']; ?></textarea>
         </div>
         <div class="form-group-inline">
             <label for="languages_spoken">Languages Spoken</label>
-            <textarea class="form-control portfolio-textarea" id="languages_spoken" name="languages_spoken" rows="3" style="font-size: 12px; height: 70px;" placeholder="Example: English and Filipino." style="font-size: 12px;"><?php echo $user_data['languages_spoken']; ?></textarea>
+            <textarea class="form-control portfolio-textarea" id="languages_spoken" name="languages_spoken" rows="3" style="font-size: 12px; height: 70px;" placeholder=" ex: English and Filipino." style="font-size: 12px;"><?php echo $user_data['languages_spoken']; ?></textarea>
         </div>
             </div>
             <div class="section-divider"></div>
 <!-- END -->
-            <button type="submit" class="btn btn-primary btn-block">Update Profile</button>
+            <button type="submit" class="btn btn-success btn-block">Update Profile</button>
         </form>
 
         <a href="profile.php" class="btn btn-secondary btn-block mt-3">Cancel</a>
@@ -403,5 +421,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             });
         });
     </script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+           function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const content = document.querySelector('.content');
+            sidebar.classList.toggle('collapsed');
+            content.classList.toggle('collapsed');
+        }
+
+                // sweet alert for logout
+                document.getElementById('logout-btn').addEventListener('click', function (e) {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You will be logged out!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, logout!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = 'logout.php';
+            }
+        });
+    });
+</script>
+
 </body>
 </html>

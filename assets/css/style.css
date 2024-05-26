@@ -15,7 +15,7 @@ body {
  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root{
-    --color-primary: #7380ec;
+    --color-primary: #75A47F;
     --color-white: #fff;
     --color-info: #7d8da1;
     --color-light: rgba(132, 139, 200, 0.18);
@@ -82,10 +82,11 @@ header{position: relative;}
     border-radius: var(--border-radius-2);
     padding: 3.5rem;
     background-color: var(--color-white);
-    border: solid 2px var(--color-light);
+    /* border: solid 2px var(--color-light); */
     width: 95%;
     max-width: 32rem;
     max-height: 41rem;
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -140,7 +141,8 @@ header{position: relative;}
 /* Sign up for Internship */
 .centered {
     text-align: center;
-    padding-top: -2rem;
+    padding-bottom: 2rem;
+    color:#75A47F;
 }
 
 
@@ -211,6 +213,7 @@ header{position: relative;}
     padding-left: 9.5rem;
     transform: translateX(-50%); /* Center it horizontally */
     text-decoration: none;
+    color:#75A47F;
 }
 
 /* added for alert */
@@ -245,5 +248,10 @@ header{position: relative;}
 
 .alert-message.show {
   display: block;
+}
+
+.section-divider-top {
+    border-bottom: 2px solid #e9ecef;
+    margin: 5px 0;
 }
 

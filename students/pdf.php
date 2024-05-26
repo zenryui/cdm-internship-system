@@ -167,5 +167,7 @@ $dompdf->setPaper('A4', 'portrait');
 $dompdf->render();
 
 // Output the generated PDF (inline or attachment)
-$dompdf->stream("resume.pdf", array("Attachment" => false));
+$student_name = htmlspecialchars($user_data['name']); // Get the name of the student currently logged in
+$filename = $student_name . "_resume.pdf"; // Concatenate the student's name with "_resume.pdf"
+$dompdf->stream($filename, array("Attachment" => false)); // Stream the PDF with the filename
 ?>
