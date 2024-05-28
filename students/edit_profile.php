@@ -145,6 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="../assets/css/sidebar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="shortcut icon" href="../assets/img/nvidalogo.png">
     <style>
 
         :root{
@@ -252,7 +253,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <a href="logout.php" id="logout-btn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
 </div>
 <div class="container">
-        <h2 class="text-center">Profile & Resume</h2>
+        <h2 class="text-center">Edit Profile & Resume</h2>
         <div class="section-divider"></div>
         <?php if (!empty($errors)): ?>
             <div class="alert alert-danger">
@@ -342,9 +343,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="section-divider"></div>
         <div class="form-group-inline centered">
                     <label class="text-center" for="course">Course</label>
-                    <option value="">--Select--</option>
                     <select class="form-control portfolio-textarea" id="course" name="course">
-                        <option value="BS Computer Engineering" <?php if($user_data['course'] == 'BS Computer Engineering') echo 'selected'; ?>>BS Computer Engineering</option>
+                    <option value="">--Select--</option>    
+                    <option value="BS Computer Engineering" <?php if($user_data['course'] == 'BS Computer Engineering') echo 'selected'; ?>>BS Computer Engineering</option>
                         <option value="BS Information Technology" <?php if($user_data['course'] == 'BS Information Technology') echo 'selected'; ?>>BS Information Technology</option>
                     </select>
                 </div>

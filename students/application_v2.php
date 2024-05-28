@@ -73,6 +73,7 @@ foreach ($statuses as $status) {
     <link rel="stylesheet" href="../assets/css/sidebar.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="shortcut icon" href="../assets/img/nvidalogo.png">
 
 
     <style>
@@ -145,6 +146,10 @@ foreach ($statuses as $status) {
             max-height: 250px;
             overflow-y: auto;
             display: block;
+        }
+
+        h2 {
+            text-align: center;
         }
         
 
@@ -261,7 +266,7 @@ foreach ($statuses as $status) {
                                     <!-- <th>Company ID</th> -->
                                     <th>Company Name</th>
                                     <th>Status</th>
-                                    <th>Resume</th>
+                                   
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -273,9 +278,7 @@ foreach ($statuses as $status) {
                                         <!-- <td><?php echo $application['company_ID']; ?></td> -->
                                         <td><?php echo $application['company_name']; ?></td>
                                         <td><?php echo $application['status']; ?></td>
-                                        <td>
-                                            <a href="../students/uploads<?php echo $application['resume_path']; ?>" download>Download</a>
-                                        </td>
+
                                         <td>
                                             <?php if ($application['status'] === 'Pending'): ?>
                                                 <button class="btn btn-danger cancel-btn" style="font-size: 12px; font-weight: 600;" data-id="<?php echo $application['internship_ID']; ?>">Cancel</button>
@@ -287,7 +290,7 @@ foreach ($statuses as $status) {
                         </table>
                     </div>
                     <?php if (empty($applicationsByStatus[$status])): ?>
-                        <div class="alert alert-warning mt-2">No Applications</div>
+                        <div class="alert alert-warning mt-2" style="max-width: 200px; float: right;">No Applications</div>
                     <?php endif; ?>
                 </div>
             <?php endforeach; ?>
@@ -361,7 +364,6 @@ foreach ($statuses as $status) {
         </div>
     </div>
 </div>
-
 
 
 <script>

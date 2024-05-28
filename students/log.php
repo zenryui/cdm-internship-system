@@ -33,7 +33,7 @@ while ($row = $announcementsResult->fetch_assoc()) {
 $notificationsQuery = "
     SELECT CONCAT('Your application for ', ai.title, ' at ', ai.company_name, ' is ', ai.status) AS notification
     FROM application_internship ai
-    WHERE ai.student_email = ?
+    WHERE ai.student_email = ? AND ai.status = 'approved'
     ORDER BY ai.application_date DESC
     LIMIT 3";
 $notificationsStmt = $conn->prepare($notificationsQuery);
@@ -111,6 +111,7 @@ $stmt->close();
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/sidebar.css">
+    <link rel="shortcut icon" href="../assets/img/nvidia.png">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -259,7 +260,7 @@ $stmt->close();
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-12">
-                <h5 class="text-center" style="margin-top: -30px;">Welcome to Dashboard, <span style="color: #75A47F;"><?php echo $user_data['name']; ?></span></h5>
+                <h5 class="text-center" style="margin-top: -30px;">Welcome to Student's Dashboard, <span style="color: #75A47F;"><?php echo $user_data['name']; ?></span></h5>
             </div>
         </div>
         <div class="section-divider-top"></div>
@@ -308,7 +309,7 @@ $stmt->close();
                 <table class="modern-table dashboard-table">
                     <thead>
                     <tr>
-                        <th>Title</th>
+                        <th>Job Title</th>
                         <th>Company</th>
                     </tr>
                     </thead>
@@ -329,7 +330,7 @@ $stmt->close();
                 <table class="modern-table dashboard-table">
                     <thead>
                     <tr>
-                        <th>Title</th>
+                        <th>Job Title</th>
                         <th>Company</th>
                         <th>Status</th>
                     </tr>

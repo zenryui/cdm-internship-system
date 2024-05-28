@@ -71,10 +71,11 @@ if ($notification_result->num_rows > 0) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Student Dashboard</title>
+    <title>Employer Dashboard</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/sidebar.css">
+    <link rel="shortcut icon" href="../assets/img/nvidia.png">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -223,7 +224,7 @@ if ($notification_result->num_rows > 0) {
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-12">
-                <h5 class="text-center" style="margin-top: -30px;">Welcome to Dashboard, <span style="color: #75A47F;"><?php echo htmlspecialchars($employer_data['name']); ?></span></h5>
+                <h5 class="text-center" style="margin-top: -30px;">Welcome to Employer's Dashboard, <span style="color: #75A47F;"><?php echo htmlspecialchars($employer_data['name']); ?></span></h5>
             </div>
         </div>
         <div class="section-divider-top"></div>
@@ -248,7 +249,7 @@ if ($notification_result->num_rows > 0) {
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="dashboard-card" style="width: 300px;">
+                <div class="dashboard-card" style="width: 350px;">
                     <h3>Company Information</h3>
                     <div class="section-divider-top"></div>
                     <?php if (isset($employer_data['name'])): ?>

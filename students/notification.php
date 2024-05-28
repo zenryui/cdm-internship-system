@@ -39,7 +39,7 @@ $applicationsStmt->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apply for Internships</title>
+    <title>Notification</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"></script>
@@ -47,6 +47,8 @@ $applicationsStmt->close();
     <link rel="stylesheet" href="../assets/css/sidebar.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="shortcut icon" href=".../assets/img/nvidialogo.png">
+    
 
 
     <style>
@@ -120,6 +122,10 @@ $applicationsStmt->close();
             overflow-y: auto;
             display: block;
         }
+
+        h2 {
+            text-align: center;
+        }
         
 
     </style>
@@ -127,7 +133,7 @@ $applicationsStmt->close();
 <body>
 <?php include 'sidebar.php'; ?>
 <div class="container mt-4">
-    <h2 style="text-align: left;">Notifications</h2>
+    <h2>Notifications</h2>
     <table class="modern-table dashboard-table">
         <thead>
             <tr>

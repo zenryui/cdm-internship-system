@@ -32,14 +32,24 @@ if (isset($_POST['signup'])) {
   $name = mysqli_real_escape_string($conn, $name);
   $email = mysqli_real_escape_string($conn, $email);
 
-  // // Check if username already exists
-  // $checkUsernameQuery = "SELECT * FROM pending_employer WHERE name = '$name'";
-  // $resultUsername = mysqli_query($conn, $checkUsernameQuery);
-  // if (mysqli_num_rows($resultUsername) > 0) {
-  //   $_SESSION['errors'] = "Name already taken!";
-  //   header('Location: signup.php');
-  //   exit;
-  // }
+  // Check if username already exists in the student table
+  $checkUsernameQuery = "SELECT * FROM activated_student WHERE name = '$name'";
+  $resultUsername = mysqli_query($conn, $checkUsernameQuery);
+  if (mysqli_num_rows($resultUsername) > 0) {
+    $_SESSION['errors'] = "Name already registered as Student!";
+    header('Location: signup.php');
+    exit;
+  }
+
+    // // Check if username already exists
+    // $checkUsernameQuery = "SELECT * FROM pending_employer WHERE name = '$name'";
+    // $resultUsername = mysqli_query($conn, $checkUsernameQuery);
+    // if (mysqli_num_rows($resultUsername) > 0) {
+    //   $_SESSION['errors'] = "Name already taken!";
+    //   header('Location: signup.php');
+    //   exit;
+    // }
+  
 
   //   // Check if username already exists
   //   $checkUsernameQuery = "SELECT * FROM activated_employer WHERE name = '$name'";
@@ -50,14 +60,14 @@ if (isset($_POST['signup'])) {
   //     exit;
   //   }
 
-  // // Check if email already exists
-  // $checkEmailQuery = "SELECT * FROM pending_employer WHERE email = '$email'";
-  // $resultEmail = mysqli_query($conn, $checkEmailQuery);
-  // if (mysqli_num_rows($resultEmail) > 0) {
-  //   $_SESSION['errors'] = "Email already exists!";
-  //   header('Location: signup.php');
-  //   exit;
-  // }
+    // Check if email already exists
+    $checkEmailQuery = "SELECT * FROM activated_student WHERE email = '$email'";
+    $resultEmail = mysqli_query($conn, $checkEmailQuery);
+    if (mysqli_num_rows($resultEmail) > 0) {
+      $_SESSION['errors'] = "Email already registered as Student!";
+      header('Location: signup.php');
+      exit;
+    }
 
     // Check if email already exists
     $checkEmailQuery = "SELECT * FROM activated_employer WHERE email = '$email'";
@@ -134,9 +144,9 @@ if (isset($_POST['signup'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="shortcut icon" href="../assets/img/id-card.png">
+    <link rel="shortcut icon" href="../assets/img/nvidia.png">
 
-    <title>Login & Registration</title>
+    <title>Employer Signup</title>
 </head>
 
 <body>
@@ -161,8 +171,8 @@ if (isset($_POST['signup'])) {
             </div>
 
             <div class="box">
-                <p class="text-muted">Username</p>
-                <input class="form-control" type="text" name="name" id="username" placeholder="Your username" required minlength="6" maxlength="20">
+                <p class="text-muted">Full Name</p>
+                <input class="form-control" type="text" name="name" id="username" placeholder="Your full name" required>
             </div>
 
             <div class="box">

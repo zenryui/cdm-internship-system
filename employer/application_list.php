@@ -43,6 +43,7 @@ $result = $stmt->get_result();
     <link rel="stylesheet" href="../assets/css/sidebar.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="shortcut icon" href="../assets/img/nvidia.png">
     
     <style>
     .btn-group {
@@ -112,6 +113,9 @@ $result = $stmt->get_result();
         padding: 10px;
         font-size: 14px;
     }
+    h2{
+        text-align: center;
+    }
     </style>
 
 </head>
@@ -119,7 +123,7 @@ $result = $stmt->get_result();
 <?php include 'sidebar.php'; ?>
 <div class="section-divider-top"></div>
 <div class="container mt-5">
-    <h2 style="font-size: 1.5rem;">Application List <span class="material-symbols-outlined">
+    <h2 style="font-size: 1.5rem;">Application List <span class="material-symbols-outlined" style="color: limegreen;">
 patient_list
 </span></h2>
 <div class="section-divider"></div>

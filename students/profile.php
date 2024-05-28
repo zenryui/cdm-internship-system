@@ -45,6 +45,7 @@ function getUserData($key, $user_data) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/sidebar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="shortcut icon" href="../assets/img/nvidia.png">
     <style>
 
         :root{
@@ -172,7 +173,7 @@ function getUserData($key, $user_data) {
                 </div>
                 <div class="form-group-inline">
                     <label for="religion">Religion</label>
-                    <input type="text" class="form-control" id="religion" name="religion" placeholder=" ex: Roman Catholic" value="<?php echo htmlspecialchars($user_data['religion']); ?>" readonly>
+                    <input type="text" class="form-control" id="religion" name="religion" placeholder=" ex: Roman Catholic" value="<?php echo getUserData('religion', $user_data); ?>" readonly>
                 </div>
                 <div class="form-group-inline">
                     <label for="birthday">Birthday</label>
@@ -180,17 +181,17 @@ function getUserData($key, $user_data) {
                 </div>
                 <div class="form-group-inline">
                     <label for="birthplace">Birthplace</label>
-                    <input type="text" class="form-control" id="birthplace" name="birthplace" placeholder=" ex: Quezon Memorial Hospital" value="<?php echo htmlspecialchars($user_data['birthplace']); ?>" readonly>
+                    <input type="text" class="form-control" id="birthplace" name="birthplace" placeholder=" ex: Quezon Memorial Hospital" value="<?php echo getUserData('birthplace', $user_data); ?>" readonly>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group-inline">
                     <label for="citizenship">Citizenship</label>
-                    <input type="text" class="form-control" id="citizenship" name="citizenship" placeholder="ex: Filipino" value="<?php echo htmlspecialchars($user_data['citizenship']); ?>" readonly>
+                    <input type="text" class="form-control" id="citizenship" name="citizenship" placeholder="ex: Filipino" value="<?php echo getUserData('citizenship', $user_data); ?>" readonly>
                 </div>
                 <div class="form-group-inline">
                     <label for="civil_status">Civil Status</label>
-                    <input type="text" class="form-control" id="civil_status" name="civil_status" placeholder="Single or Married" value="<?php echo htmlspecialchars($user_data['civil_status']); ?>" readonly>
+                    <input type="text" class="form-control" id="civil_status" name="civil_status" placeholder="Single or Married" value="<?php echo getUserData('civil_status', $user_data); ?>" readonly>
                 </div>
             </div>
             <div class="section-divider"></div>
@@ -223,31 +224,31 @@ function getUserData($key, $user_data) {
             <div class="form-row">
                 <div class="form-group-inline">
                     <label for="primary_education">Primary Education</label>
-                    <input type="text" class="form-control" id="primary_education" name="primary_education"placeholder="Elementaty School" value="<?php echo htmlspecialchars($user_data['primary_education']); ?>" readonly>
+                    <input type="text" class="form-control" id="primary_education" name="primary_education"placeholder="Elementaty School" value="<?php echo getUserData('primary_education', $user_data); ?>" readonly>
                 </div>
                 <div class="form-group-inline">
                     <label for="primary_year">Year</label>
-                    <input type="text" class="form-control" id="primary_year" name="primary_year" placeholder="Year Started - Year Graduate" value="<?php echo htmlspecialchars($user_data['primary_year']); ?>" readonly>
+                    <input type="text" class="form-control" id="primary_year" name="primary_year" placeholder="Year Started - Year Graduate" value="<?php echo getUserData('primary_year', $user_data); ?>" readonly>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group-inline">
                     <label for="secondary_education">Secondary Education</label>
-                    <input type="text" class="form-control" id="secondary_education" name="secondary_education" placeholder="High School" value="<?php echo htmlspecialchars($user_data['secondary_education']); ?>" readonly>
+                    <input type="text" class="form-control" id="secondary_education" name="secondary_education" placeholder="High School" value="<?php echo getUserData('secondary_education', $user_data); ?>" readonly>
                 </div>
                 <div class="form-group-inline">
                     <label for="secondary_year">Year</label>
-                    <input type="text" class="form-control" id="secondary_year" name="secondary_year" placeholder="Year Started - Year Graduate"value="<?php echo htmlspecialchars($user_data['secondary_year']); ?>" readonly>
+                    <input type="text" class="form-control" id="secondary_year" name="secondary_year" placeholder="Year Started - Year Graduate"value="<?php echo getUserData('secondary_year', $user_data); ?>" readonly>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group-inline">
                     <label for="tertiary_education">Tertiary Education</label>
-                    <input type="text" class="form-control" id="tertiary_education" name="tertiary_education"placeholder="College or University" value="<?php echo htmlspecialchars($user_data['tertiary_education']); ?>" readonly>
+                    <input type="text" class="form-control" id="tertiary_education" name="tertiary_education"placeholder="College or University" value="<?php echo getUserData('tertiary_education', $user_data); ?>" readonly>
                 </div>
                 <div class="form-group-inline">
                     <label for="tertiary_year">Year</label>
-                    <input type="text" class="form-control" id="tertiary_year" name="tertiary_year" placeholder="Year Started - Year Graduate" value="<?php echo htmlspecialchars($user_data['tertiary_year']); ?>" readonly>
+                    <input type="text" class="form-control" id="tertiary_year" name="tertiary_year" placeholder="Year Started - Year Graduate" value="<?php echo getUserData('tertiary_year', $user_data); ?>" readonly>
                 </div>
             </div>
             <div class="section-divider"></div>
@@ -256,11 +257,11 @@ function getUserData($key, $user_data) {
             <div class="form-row">
             <div class="form-group-inline centered">
             <label for="objective">Objective</label>
-            <textarea class="form-control portfolio-textarea" id="objective" name="objective" rows="3" placeholder=" ex: To develop my career in a reputable company." readonly style="font-size: 12px;"><?php echo htmlspecialchars($user_data['objective']); ?></textarea>
+            <textarea class="form-control portfolio-textarea" id="objective" name="objective" rows="3" placeholder=" ex: To develop my career in a reputable company." readonly style="font-size: 12px;"><?php echo getUserData('objective', $user_data); ?></textarea>
         </div>
         <div class="form-group-inline">
             <label for="languages_spoken">Languages Spoken</label>
-            <textarea class="form-control portfolio-textarea" id="languages_spoken" name="languages_spoken" rows="3" style="font-size: 12px; height: 70px;" placeholder=" ex: English and Filipino." readonly style="font-size: 12px;"><?php echo htmlspecialchars($user_data['languages_spoken']); ?></textarea>
+            <textarea class="form-control portfolio-textarea" id="languages_spoken" name="languages_spoken" rows="3" style="font-size: 12px; height: 70px;" placeholder=" ex: English and Filipino." readonly style="font-size: 12px;"><?php echo getUserData('languages_spoken', $user_data); ?></textarea>
         </div>
 
             </div>

@@ -54,6 +54,7 @@ while ($row = $result->fetch_assoc()) {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/sidebar.css">
+    <link rel="shortcut icon" href="../assets/img/nvidia.png">
 <style>
     body {
         font-family: 'Poppins', sans-serif;
@@ -115,6 +116,10 @@ while ($row = $result->fetch_assoc()) {
         overflow-y: auto;
         margin-top: 20px;
     }
+
+    h2 {
+        text-align: center;
+    }
 </style>
 </head>
 <body>
@@ -140,7 +145,7 @@ while ($row = $result->fetch_assoc()) {
     <div class="tab-content" id="myTabContent">
         <!-- All Internships Tab -->
         <div class="tab-pane fade show active" id="all-tab-pane" role="tabpanel" aria-labelledby="all-tab" tabindex="0">
-            <h2 class="mt-4" style="font-size: 1.5rem;">All Internship Programs <span class="material-symbols-outlined">
+            <h2 class="mt-4" style="font-size: 1.5rem;">All Internship Programs <span class="material-symbols-outlined" style="color: blue;">
                 work</span>
                 <!-- Create Internship Toggle Button -->
             <button type="button" class="btn btn-success mt-0" style="margin-left: 970px; font-size: 12px;" data-bs-toggle="modal" data-bs-target="#createInternshipModal">
@@ -176,7 +181,9 @@ while ($row = $result->fetch_assoc()) {
         </div>
         <!-- Posted Internships Tab -->
         <div class="tab-pane fade" id="posted-tab-pane" role="tabpanel" aria-labelledby="posted-tab" tabindex="0">
-            <h2 class="mt-4" style="font-size: 1.5rem;">Posted Internship Programs</h2>
+            <h2 class="mt-4" style="font-size: 1.5rem;">Posted Internship Programs <span class="material-symbols-outlined" style="color: limegreen;">
+thumb_up
+</span></h2>
             <div class="table-wrapper">
                 <table class="modern-table dashboard-table" id="postedInternshipTable">
                     <thead>
@@ -207,7 +214,9 @@ while ($row = $result->fetch_assoc()) {
         </div>
         <!-- Declined Internships Tab -->
         <div class="tab-pane fade" id="declined-tab-pane" role="tabpanel" aria-labelledby="declined-tab" tabindex="0">
-            <h2 class="mt-4" style="font-size: 1.5rem;">Declined Internship Programs</h2>
+            <h2 class="mt-4" style="font-size: 1.5rem;">Declined Internship Programs <span class="material-symbols-outlined" style="color: red;">
+thumb_down
+</span></h2>
             <div class="table-wrapper">
                 <table class="modern-table dashboard-table" id="declinedInternshipTable">
                     <thead>
@@ -238,7 +247,9 @@ while ($row = $result->fetch_assoc()) {
         </div>
         <!-- Pending Internships Tab -->
         <div class="tab-pane fade" id="pending-tab-pane" role="tabpanel" aria-labelledby="pending-tab" tabindex="0">
-            <h2 class="mt-4" style="font-size: 1.5rem;">Pending Internship Programs</h2>
+            <h2 class="mt-4" style="font-size: 1.5rem;">Pending Internship Programs<span class="material-symbols-outlined" style="color: orange;">
+pending_actions
+</span></h2>
             <div class="table-wrapper">
                 <table class="modern-table dashboard-table" id="pendingInternshipTable">
                     <thead>

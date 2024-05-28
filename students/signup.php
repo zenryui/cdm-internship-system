@@ -32,29 +32,29 @@ if (isset($_POST['signup'])) {
   $name = mysqli_real_escape_string($conn, $name);
   $email = mysqli_real_escape_string($conn, $email);
 
-  // Check if username already exists in pending_student
-  $checkUsernameQuery = "SELECT * FROM pending_student WHERE name = '$name'";
+  // Check if name already registered as employer
+  $checkUsernameQuery = "SELECT * FROM activated_employer WHERE name = '$name'";
   $resultUsername = mysqli_query($conn, $checkUsernameQuery);
   if (mysqli_num_rows($resultUsername) > 0) {
-    $_SESSION['errors'] = "Username already taken!";
+    $_SESSION['errors'] = "Name already registered as Employer!";
     header('Location: signup.php');
     exit;
   }
 
-  // Check if username already exists in activated_student
-  $checkUsernameQuery = "SELECT * FROM activated_student WHERE name = '$name'";
-  $resultUsername = mysqli_query($conn, $checkUsernameQuery);
-  if (mysqli_num_rows($resultUsername) > 0) {
-    $_SESSION['errors'] = "Username already taken!";
-    header('Location: signup.php');
-    exit;
-  }
+  // // Check if username already exists in activated_student
+  // $checkUsernameQuery = "SELECT * FROM activated_student WHERE name = '$name'";
+  // $resultUsername = mysqli_query($conn, $checkUsernameQuery);
+  // if (mysqli_num_rows($resultUsername) > 0) {
+  //   $_SESSION['errors'] = "Username already taken!";
+  //   header('Location: signup.php');
+  //   exit;
+  // }
 
   // Check if email already exists in pending_student
-  $checkEmailQuery = "SELECT * FROM pending_student WHERE email = '$email'";
+  $checkEmailQuery = "SELECT * FROM activated_employer WHERE email = '$email'";
   $resultEmail = mysqli_query($conn, $checkEmailQuery);
   if (mysqli_num_rows($resultEmail) > 0) {
-    $_SESSION['errors'] = "Email already exists!";
+    $_SESSION['errors'] = "Email already registered as Employer!";
     header('Location: signup.php');
     exit;
   }
@@ -92,8 +92,8 @@ if (isset($_POST['signup'])) {
       $mail->isSMTP();
       $mail->Host       = 'smtp.gmail.com';
       $mail->SMTPAuth   = true;
-      $mail->Username   = 'programmerferg@gmail.com';   // Enter your gmail-id              
-      $mail->Password   = 'tgjonvgztrmgukrf';     // Enter your gmail app password that you generated 
+      $mail->Username   = 'cdm.ics.internship@gmail.com';   // Enter your gmail-id              
+      $mail->Password   = 'bhvgbxexullmszdk';     // Enter your gmail app password that you generated 
       $mail->SMTPSecure = 'ssl';
       $mail->Port       = 465;
 
@@ -138,9 +138,9 @@ if (isset($_POST['signup'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="shortcut icon" href="../assets/img/id-card.png">
+    <link rel="shortcut icon" href="../assets/img/nvidia.png">
 
-    <title>Login & Registration</title>
+    <title>Student Signup</title>
 </head>
 
 <body>

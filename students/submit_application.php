@@ -10,6 +10,8 @@ if (!isset($_SESSION['user_data'])) {
 
 // Assuming user data is stored in the session
 $user_data = $_SESSION['user_data']; 
+$student_name = $user_data['name']; // Replace with actual session variable for user name
+$student_course = $user_data['course']; // Replace with actual session variable for user course
 $student_email = $user_data['email']; // Replace with actual session variable for user email
 
 // Get POST data
@@ -32,9 +34,9 @@ if (isset($_FILES['resumeFile']) && $_FILES['resumeFile']['error'] == 0) {
 }
 
 // Insert application into the database
-$insertQuery = "INSERT INTO application_internship (internship_ID, title, company_ID, company_name, student_email, resume_path, status) VALUES (?, ?, ?, ?, ?, ?, 'Pending')";
+$insertQuery = "INSERT INTO application_internship (internship_ID, student_name, student_course, title, company_ID, company_name, student_email, resume_path, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Pending')";
 $stmt = $conn->prepare($insertQuery);
-$stmt->bind_param("ississ", $internshipID, $internshipTitle, $companyID, $companyName, $student_email, $resumePath);
+$stmt->bind_param("isssisss", $internshipID, $student_name, $student_course, $internshipTitle, $companyID, $companyName, $student_email, $resumePath);
 
 if ($stmt->execute()) {
     echo "success";

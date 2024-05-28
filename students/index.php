@@ -68,9 +68,9 @@ if (isset($_POST['login'])) {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- sweet alert -->
   <link rel="stylesheet" href="../assets/css/login.css">
-  <link rel="shortcut icon" href="../assets/img/id-card.png">
+  <link rel="shortcut icon" href="../assets/img/nvidalogo.png">
 
-  <title>Login</title>
+  <title>Student Login</title>
 </head>
 <body>
 <div class="login-container">
