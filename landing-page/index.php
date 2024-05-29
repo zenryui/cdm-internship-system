@@ -17,7 +17,7 @@
         </div>
         
         <ul class="nav">
-            <li><a href="https://github.com/zenryui/cdm-internship-system/settings/access">Developers</a></li>
+            <li><a href="https://github.com/ferguzus">Developers</a></li>
             <li><a href="https://github.com/zenryui/cdm-internship-system/tree/defense">Github Repository</a></li>
             <li><a href="#">Resources</a></li>
         </ul>
