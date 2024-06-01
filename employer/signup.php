@@ -5,7 +5,7 @@ session_start();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '../vendor/autoload.php';
+require '../dompdf/vendor/autoload.php';
 
 function sanitize($data)
 {
@@ -84,7 +84,8 @@ if (isset($_POST['signup'])) {
   $sql = "INSERT INTO pending_employer (name, email, password, code, active, access) VALUES ('$name', '$email', '$hashedPass', '$hashedCode', '$active', '$access')";
 
   if (mysqli_query($conn, $sql)) {
-    
+
+
     $mail = new PHPMailer();
 
     try {
