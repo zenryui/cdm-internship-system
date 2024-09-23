@@ -21,7 +21,7 @@ $resumePath = ""; // Initialize resume path
 
 // Handle file upload
 if (isset($_FILES['resumeFile']) && $_FILES['resumeFile']['error'] == 0) {
-    $resumePath = '../students/uploads/' . basename($_FILES['resumeFile']['name']);
+    $resumePath = 'uploads/' . basename($_FILES['resumeFile']['name']);
     if (!move_uploaded_file($_FILES['resumeFile']['tmp_name'], $resumePath)) {
         echo "error: Failed to upload resume";
         exit;
